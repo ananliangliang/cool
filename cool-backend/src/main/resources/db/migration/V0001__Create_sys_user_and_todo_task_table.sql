@@ -1,0 +1,38 @@
+create table sys_user
+(
+    id                  bigserial
+        primary key,
+    name                varchar(32)               not null,
+    username            varchar(20)               not null
+        constraint sys_user_uk
+            unique,
+    phone               varchar(32),
+    email               varchar(32),
+    password            varchar                   not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+comment on column sys_user.name is '名称';
+
+comment on column sys_user.phone is '手机号';
+
+comment on column sys_user.email is '邮箱';
+
+create table todo_task
+(
+    id                  bigserial
+        primary key,
+    name                varchar(255)              not null,
+    note                text                      null,
+    is_done             bool        default false not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+
+
