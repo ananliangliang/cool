@@ -21,6 +21,22 @@ comment on column sys_user.phone is '手机号';
 
 comment on column sys_user.email is '邮箱';
 
+create table sys_role
+(
+    id                  bigserial
+        primary key,
+    name                varchar(32)               not null,
+    remark              varchar,
+    authority           varchar(32)               not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+insert into sys_role (name, remark, authority) values ('管理员', '管理员', 'ADMIN');
+insert into sys_role (name, remark, authority) values ('普通用户', '普通用户', 'USER');
+
 create table todo_task
 (
     id                  bigserial

@@ -5,8 +5,11 @@ spring:
     username: postgres
     password: 12as!@AS
 
-  jpa:
-    show-sql: on
-logging:
-  level:
-    org.springframework.security: Trace
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,flyway

@@ -15,6 +15,10 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
+springBoot {
+    buildInfo()
+}
+
 configurations {
 	compileOnly {
 		extendsFrom(configurations.annotationProcessor.get())

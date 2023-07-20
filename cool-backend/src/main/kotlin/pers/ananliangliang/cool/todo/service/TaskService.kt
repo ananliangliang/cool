@@ -1,8 +1,6 @@
 package pers.ananliangliang.cool.todo.service
 
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
-import pers.ananliangliang.cool.common.SecurityUtils
 import pers.ananliangliang.cool.todo.domain.vo.request.CreateTaskReq
 import pers.ananliangliang.cool.todo.repository.TaskRepository
 
@@ -16,4 +14,5 @@ class TaskService(
 
 
     fun listTask() = repository.getByIsDoneFalse()
+    fun deleteTask(id: Long) = repository.deleteById(id)
 }

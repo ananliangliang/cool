@@ -1,4 +1,4 @@
-package pers.ananliangliang.cool.common
+package pers.ananliangliang.cool.common.util
 
 import org.springframework.security.core.context.SecurityContextHolder
 
