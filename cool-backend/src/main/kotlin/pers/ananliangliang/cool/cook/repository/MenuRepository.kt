@@ -1,7 +1,7 @@
-package pers.ananliangliang.cool.order.repository
+package pers.ananliangliang.cool.cook.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import pers.ananliangliang.cool.order.domain.Menu
+import pers.ananliangliang.cool.cook.domain.Menu
 
 interface MenuRepository : JpaRepository<Menu, Long> {
 

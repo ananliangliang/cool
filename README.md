@@ -6,7 +6,7 @@
 graph LR
 COOL[COOL] --> sys[系统]
 COOL --> todo[待办事项]
-COOL --> order[订单]
+COOL --> cook[烹饪]
 COOL --> chat[聊天]
 ```
 

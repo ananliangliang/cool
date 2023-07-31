@@ -53,11 +53,12 @@ create table todo_task
 );
 
 
-create table order_menu
+create table cook_menu
 (
     id                  bigserial
         primary key,
-    name                varchar                   not null,
+    title               varchar(20)               not null,
+    subtitle            varchar(40)               null,
     description         varchar                   null,
     created_by_id       bigint,
     created_date        timestamptz default now() not null,
@@ -65,7 +66,7 @@ create table order_menu
     last_modified_date  timestamptz default now() not null
 );
 
-create table order_food
+create table cook_food
 (
     id                  bigserial
         primary key,

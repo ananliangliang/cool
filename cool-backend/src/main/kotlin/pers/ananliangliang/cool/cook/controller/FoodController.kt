@@ -1,8 +1,8 @@
-package pers.ananliangliang.cool.order.controller
+package pers.ananliangliang.cool.cook.controller
 
 import org.springframework.web.bind.annotation.*
-import pers.ananliangliang.cool.order.domain.Food
-import pers.ananliangliang.cool.order.service.FoodService
+import pers.ananliangliang.cool.cook.domain.Food
+import pers.ananliangliang.cool.cook.service.FoodService
 
 @RestController
 @RequestMapping("/order")

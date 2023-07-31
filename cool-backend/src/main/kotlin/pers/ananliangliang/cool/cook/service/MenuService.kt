@@ -1,9 +1,9 @@
-package pers.ananliangliang.cool.order.service
+package pers.ananliangliang.cool.cook.service
 
 import org.springframework.stereotype.Service
 import pers.ananliangliang.cool.common.util.SecurityUtils
-import pers.ananliangliang.cool.order.domain.Menu
-import pers.ananliangliang.cool.order.repository.MenuRepository
+import pers.ananliangliang.cool.cook.domain.Menu
+import pers.ananliangliang.cool.cook.repository.MenuRepository
 
 @Service
 class MenuService(
@@ -20,5 +20,6 @@ class MenuService(
     fun updateMenu(menu: Menu) = repository.save(menu)
 
     fun deleteMenu(id: Long) = repository.deleteById(id)
+    fun getMenuById(id: Long) = repository.getReferenceById(id)
 
 }

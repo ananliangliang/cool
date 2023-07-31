@@ -1,10 +1,10 @@
-package pers.ananliangliang.cool.order.domain
+package pers.ananliangliang.cool.cook.domain
 
 import jakarta.persistence.Entity
 import pers.ananliangliang.cool.common.BaseEntity
 import java.math.BigDecimal
 
-@Entity(name = "order_food")
+@Entity(name = "cook_food")
 class Food(
     var name: String?,
     var price: BigDecimal?,

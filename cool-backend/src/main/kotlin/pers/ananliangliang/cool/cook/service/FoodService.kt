@@ -1,8 +1,8 @@
-package pers.ananliangliang.cool.order.service
+package pers.ananliangliang.cool.cook.service
 
 import org.springframework.stereotype.Service
-import pers.ananliangliang.cool.order.domain.Food
-import pers.ananliangliang.cool.order.repository.FoodRepository
+import pers.ananliangliang.cool.cook.domain.Food
+import pers.ananliangliang.cool.cook.repository.FoodRepository
 
 @Service
 class FoodService(

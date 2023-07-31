@@ -1,0 +1,13 @@
+#outer {
+  background-image: url("https://f.cdn-static.cn/29440_16753088812582.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+
+  padding-top: 100px;
+
+}
+mat-card {
+  /*margin-top: 50px;*/
+  margin-left: 10px;
+  margin-right: 10px;
+}
