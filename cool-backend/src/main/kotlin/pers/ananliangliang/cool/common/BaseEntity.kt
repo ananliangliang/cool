@@ -13,15 +13,9 @@ import java.util.*
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
-    @ManyToOne @CreatedBy var createdBy: User?,
-    @CreatedDate var createdDate: Date?,
-    @ManyToOne @LastModifiedBy var lastModifiedBy: User?,
-    @LastModifiedDate var lastModifiedDate: Date?,
-) {
-    constructor() : this(null, null, null, null, null)
-
-
-
-
-}
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
+    @ManyToOne @CreatedBy var createdBy: User? = null,
+    @CreatedDate var createdDate: Date? = null,
+    @ManyToOne @LastModifiedBy var lastModifiedBy: User? = null,
+    @LastModifiedDate var lastModifiedDate: Date? = null,
+)

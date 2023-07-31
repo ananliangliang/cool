@@ -5,10 +5,7 @@ import pers.ananliangliang.cool.common.BaseEntity
 
 @Entity(name = "sys_role")
 class Role (
-    name: String?,
-    remark: String?,
-    authority: String?,
-) : BaseEntity() {
-
-
-}
+    var name: String? = null,
+    var remark: String? = null,
+    var authority: String? = null,
+) : BaseEntity()

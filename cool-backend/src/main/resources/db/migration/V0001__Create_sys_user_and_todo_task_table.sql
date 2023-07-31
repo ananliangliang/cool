@@ -34,14 +34,16 @@ create table sys_role
     last_modified_date  timestamptz default now() not null
 );
 
-insert into sys_role (name, remark, authority) values ('管理员', '管理员', 'ADMIN');
-insert into sys_role (name, remark, authority) values ('普通用户', '普通用户', 'USER');
+insert into sys_role (name, remark, authority)
+values ('管理员', '管理员', 'ADMIN');
+insert into sys_role (name, remark, authority)
+values ('普通用户', '普通用户', 'USER');
 
 create table todo_task
 (
     id                  bigserial
         primary key,
-    name                varchar(255)              not null,
+    name                varchar                   not null,
     note                text                      null,
     is_done             bool        default false not null,
     created_by_id       bigint,
@@ -51,4 +53,30 @@ create table todo_task
 );
 
 
+create table order_menu
+(
+    id                  bigserial
+        primary key,
+    name                varchar                   not null,
+    description         varchar                   null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+create table order_food
+(
+    id                  bigserial
+        primary key,
+    name                varchar                   not null,
+    price               decimal                   not null,
+    description         varchar                   null,
+    image               text                      null,
+    menu_id             bigint                    not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
 
