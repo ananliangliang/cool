@@ -4,7 +4,7 @@
       <mat-card-title-group>
         <mat-card-title>{{menu?.title}}</mat-card-title>
         <mat-card-subtitle>{{menu?.subtitle}}</mat-card-subtitle>
-        <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
@@ -13,9 +13,38 @@
   </mat-card>
 </div>
 
+<ul>
+  <li *ngFor="let food of menu?.foods">
+    <div class="food">
+      <div class="food-img">
+        <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+      </div>
+      <div class="food-content">
+        <div class="food-title">{{food.name}}</div>
+        <div class="food-description"><h3 class="mat-h3">{{food.description}}</h3></div>
+        <div class="food-price-and-add-remove">
+          <div class="food-price">{{food.price | currency:'CNY'}}</div>
+          <div class="food-add-remove">
+            <button *ngIf="food.num" mat-fab color="primary" class="food-remove" (click)="removeFoodNum(food.id)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <label *ngIf="food.num">{{food.num}}</label>
+            <button mat-fab color="primary" class="food-remove" (click)="addFoodNum(food.id)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+
+</ul>
 
 
 
-<button mat-fab color="primary">
-  <mat-icon>add</mat-icon>
-</button>
+
+
+
+
+

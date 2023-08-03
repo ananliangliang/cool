@@ -11,6 +11,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { HttpClientModule } from "@angular/common/http";
 import { MenuComponent } from './cook/menu/menu.component';
 import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {MatCardModule} from "@angular/material/card";
     MatButtonModule,
     HttpClientModule,
     MatCardModule,
+    MatListModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

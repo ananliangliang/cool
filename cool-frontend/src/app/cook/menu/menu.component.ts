@@ -22,5 +22,15 @@ export class MenuComponent implements OnInit{
   }
 
 
+  addFoodNum(id: number) {
+    let food = this.menu?.foods.find(it => it.id === id)!
+    food.num ??= 0
+    food.num++
+  }
+
+  removeFoodNum(id: number) {
+    let food = this.menu?.foods.find(it => it.id === id)!
+    food.num!--
+  }
 
 }
