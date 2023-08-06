@@ -9,17 +9,22 @@ create table sys_user
     phone               varchar(32),
     email               varchar(32),
     password            varchar                   not null,
+    role_id             bigint                    not null,
     created_by_id       bigint,
     created_date        timestamptz default now() not null,
     last_modified_by_id bigint,
     last_modified_date  timestamptz default now() not null
 );
 
+comment on table sys_user is '用户';
+
 comment on column sys_user.name is '名称';
 
 comment on column sys_user.phone is '手机号';
 
 comment on column sys_user.email is '邮箱';
+
+comment on column sys_user.role_id is 'sys_role.id';
 
 create table sys_role
 (
@@ -33,6 +38,8 @@ create table sys_role
     last_modified_by_id bigint,
     last_modified_date  timestamptz default now() not null
 );
+
+comment on table sys_role is '角色表';
 
 insert into sys_role (name, remark, authority)
 values ('管理员', '管理员', 'ADMIN');
@@ -52,6 +59,7 @@ create table todo_task
     last_modified_date  timestamptz default now() not null
 );
 
+comment on table todo_task is '代办任务';
 
 create table cook_menu
 (
@@ -80,4 +88,20 @@ create table cook_food
     last_modified_by_id bigint,
     last_modified_date  timestamptz default now() not null
 );
+
+create table cook_cart
+(
+    id                  bigserial
+        primary key,
+    menu_id             bigint                    not null,
+    food_id             bigint                    not null,
+    num                 integer                   not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+comment on table cook_cart is '购物车';
+
 
