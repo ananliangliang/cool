@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../menu.service";
 import {Menu} from "../menu";
 import {ActivatedRoute} from "@angular/router";
+import {Food} from "../food";
 
 @Component({
   selector: 'app-menu',
@@ -22,15 +23,20 @@ export class MenuComponent implements OnInit{
   }
 
 
-  addFoodNum(id: number) {
-    let food = this.menu?.foods.find(it => it.id === id)!
-    food.num ??= 0
-    food.num++
+  addFoodNum(food: Food) {
+    if (food.cart)
+      food.cart.num++
+    else
+      food.cart = {num: 1}
+    this.service.increaseFoodNum(this.menu!.id, food.id).subscribe()
   }
 
-  removeFoodNum(id: number) {
-    let food = this.menu?.foods.find(it => it.id === id)!
-    food.num!--
+  removeFoodNum(food: Food) {
+    if (food.cart && food.cart.num !=1)
+      food.cart.num--
+    else
+      food.cart = undefined
+    this.service.decreaseFoodNum(this.menu!.id, food.id).subscribe()
   }
 
 }

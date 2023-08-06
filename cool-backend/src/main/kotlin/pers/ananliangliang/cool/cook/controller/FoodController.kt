@@ -5,7 +5,7 @@ import pers.ananliangliang.cool.cook.domain.Food
 import pers.ananliangliang.cool.cook.service.FoodService
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/cook")
 class FoodController(
     private val service: FoodService,
 ) {

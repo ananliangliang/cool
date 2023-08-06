@@ -1,11 +1,9 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
   <span>COOL</span>
+  <a mat-button routerLink="/todo">待办事项</a>
+  <a mat-button routerLink="/cook/1">炸厨房</a>
+
+
 </mat-toolbar>
-<nav>
-  <a routerLink="/todo">todo</a>
-  <a routerLink="/cook">cook</a>
-</nav>
+
 <router-outlet></router-outlet>

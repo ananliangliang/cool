@@ -4,7 +4,7 @@ import { TodoComponent } from "./todo/todo.component";
 import {MenuComponent} from "./cook/menu/menu.component";
 
 const routes: Routes = [
-  { path: "", component: MenuComponent },
+  { path: "", component: TodoComponent },
   { path: 'todo', component: TodoComponent },
   { path: 'cook/:id', component: MenuComponent }
 ];

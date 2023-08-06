@@ -13,6 +13,7 @@ import { MenuComponent } from './cook/menu/menu.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatCardModule,
     MatListModule,
     MatGridListModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

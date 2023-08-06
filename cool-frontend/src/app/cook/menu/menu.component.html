@@ -25,11 +25,11 @@
         <div class="food-price-and-add-remove">
           <div class="food-price">{{food.price | currency:'CNY'}}</div>
           <div class="food-add-remove">
-            <button *ngIf="food.num" mat-fab color="primary" class="food-remove" (click)="removeFoodNum(food.id)">
+            <button *ngIf="food.cart" mat-fab color="primary" class="food-remove" (click)="removeFoodNum(food)">
               <mat-icon>remove</mat-icon>
             </button>
-            <label *ngIf="food.num">{{food.num}}</label>
-            <button mat-fab color="primary" class="food-remove" (click)="addFoodNum(food.id)">
+            <label *ngIf="food.cart">{{food.cart.num}}</label>
+            <button mat-fab color="primary" class="food-remove" (click)="addFoodNum(food)">
               <mat-icon>add</mat-icon>
             </button>
           </div>

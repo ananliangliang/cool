@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/cool
     username: postgres
     password: 12as!@AS
+  jpa:
+    show-sql: on
 
 management:
   endpoint:
