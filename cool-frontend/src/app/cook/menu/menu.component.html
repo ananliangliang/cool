@@ -12,34 +12,44 @@
     </mat-card-content>
   </mat-card>
 </div>
+<div class="category-food">
+  <mat-list >
+    <mat-list-item *ngFor="let category of menu?.categories">{{category.name}}</mat-list-item>
+  </mat-list>
 
-<ul>
-  <li *ngFor="let food of menu?.foods">
-    <div class="food">
-      <div class="food-img">
-        <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-      </div>
-      <div class="food-content">
-        <div class="food-title">{{food.name}}</div>
-        <div class="food-description"><h3 class="mat-h3">{{food.description}}</h3></div>
-        <div class="food-price-and-add-remove">
-          <div class="food-price">{{food.price | currency:'CNY'}}</div>
-          <div class="food-add-remove">
-            <button *ngIf="food.cart" mat-fab color="primary" class="food-remove" (click)="removeFoodNum(food)">
-              <mat-icon>remove</mat-icon>
-            </button>
-            <label *ngIf="food.cart">{{food.cart.num}}</label>
-            <button mat-fab color="primary" class="food-remove" (click)="addFoodNum(food)">
-              <mat-icon>add</mat-icon>
-            </button>
+  <ul class="food-container">
+    <li *ngFor="let category of menu?.categories">
+      <div *ngFor="let food of category.foods">
+
+        <div class="food">
+          <div class="food-img">
+            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+          </div>
+          <div class="food-content">
+            <div class="food-title">{{food.name}}</div>
+            <div class="food-description"><h3 class="mat-h3">{{food.description}}</h3></div>
+            <div class="food-price-and-add-remove">
+              <div class="food-price">{{food.price | currency:'CNY'}}</div>
+              <div class="food-add-remove">
+                <button mat-fab color="primary" class="food-remove" (click)="removeFoodNum(food)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <label>{{getFoodNum(menu, food)}}</label>
+                <button mat-fab color="primary" class="food-remove" (click)="addFoodNum(food)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
-    </div>
-  </li>
+    </li>
 
 
-</ul>
+  </ul>
+</div>
+
 
 
 

@@ -74,6 +74,18 @@ create table cook_menu
     last_modified_date  timestamptz default now() not null
 );
 
+create table cook_category
+(
+    id                  bigserial
+        primary key,
+    name                varchar(20)               not null,
+    menu_id             bigint                    not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
 create table cook_food
 (
     id                  bigserial
@@ -82,7 +94,18 @@ create table cook_food
     price               decimal                   not null,
     description         varchar                   null,
     image               text                      null,
-    menu_id             bigint                    not null,
+    created_by_id       bigint,
+    created_date        timestamptz default now() not null,
+    last_modified_by_id bigint,
+    last_modified_date  timestamptz default now() not null
+);
+
+create table cook_category_food
+(
+    id                  bigserial
+        primary key,
+    category_id         bigint                    not null,
+    food_id             bigint                    not null,
     created_by_id       bigint,
     created_date        timestamptz default now() not null,
     last_modified_by_id bigint,
@@ -103,5 +126,6 @@ create table cook_cart
 );
 
 comment on table cook_cart is '购物车';
+
 
 

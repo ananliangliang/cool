@@ -1,9 +1,8 @@
 import {Cart} from "./cart";
 
 export interface Food {
-  id: number;
-  name: string;
-  description?: string;
-  price: number;
-  cart?: Cart;
+  id: number
+  name: string
+  description?: string
+  price: number
 }

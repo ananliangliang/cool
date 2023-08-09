@@ -22,21 +22,28 @@ export class MenuComponent implements OnInit{
       .subscribe(it => this.menu = it)
   }
 
+  checkIfFoodInCart(menu?: Menu, food?: Food) {
+    return menu?.carts.some(it => it.foodId === food?.id)
+  }
+
+  getFoodNum(menu?: Menu, food?: Food) {
+    return menu?.carts.find(it => it.foodId === food?.id)?.num
+  }
+
 
   addFoodNum(food: Food) {
-    if (food.cart)
-      food.cart.num++
-    else
-      food.cart = {num: 1}
-    this.service.increaseFoodNum(this.menu!.id, food.id).subscribe()
+    // if (foo)
+    //   food.cart.num++
+    // else
+    //   food.cart = {num: 1}
+    // this.service.increaseFoodNum(this.menu!.id, food.id).subscribe()
   }
 
   removeFoodNum(food: Food) {
-    if (food.cart && food.cart.num !=1)
-      food.cart.num--
-    else
-      food.cart = undefined
-    this.service.decreaseFoodNum(this.menu!.id, food.id).subscribe()
+    // if (food.cart && food.cart.num !=1)
+    //   food.cart.num--
+    // else
+    //   food.cart = undefined
+    // this.service.decreaseFoodNum(this.menu!.id, food.id).subscribe()
   }
-
 }

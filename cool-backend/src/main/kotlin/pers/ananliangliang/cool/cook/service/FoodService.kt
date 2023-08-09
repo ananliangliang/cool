@@ -10,7 +10,7 @@ class FoodService(
 ) {
 
     fun createFood(food: Food, menuId: Long) {
-        food.menuId = menuId
+//        food.menuId = menuId
         repository.save(food)
     }
 }
