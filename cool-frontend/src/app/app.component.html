@@ -1,9 +1,34 @@
-<mat-toolbar color="primary">
-  <span>COOL</span>
-  <a mat-button routerLink="/todo">待办事项</a>
-  <a mat-button routerLink="/cook/1">炸厨房</a>
 
 
-</mat-toolbar>
 
-<router-outlet></router-outlet>
+<mat-drawer-container>
+  <mat-drawer #drawer >
+    <mat-nav-list>
+      <button mat-icon-button (click)="drawer.toggle()"><mat-icon>menu_open</mat-icon></button>
+      <mat-list-item>
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>首页</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/todo" (click)="drawer.toggle()">
+        <mat-icon matListItemIcon>done_outlined</mat-icon>
+        <span matListItemTitle>待办事项</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/cook/1" (click)="drawer.toggle()">
+        <mat-icon matListItemIcon>cookie</mat-icon>
+        <span matListItemTitle>炸厨房</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar>
+      <button (click)="drawer.toggle()" mat-icon-button class="example-icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>COOL</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+

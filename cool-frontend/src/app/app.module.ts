@@ -14,6 +14,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
@@ -21,19 +22,20 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     TodoComponent,
     MenuComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule,
-    MatCardModule,
-    MatListModule,
-    MatGridListModule,
-    MatButtonToggleModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        HttpClientModule,
+        MatCardModule,
+        MatListModule,
+        MatGridListModule,
+        MatButtonToggleModule,
+        MatSidenavModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
