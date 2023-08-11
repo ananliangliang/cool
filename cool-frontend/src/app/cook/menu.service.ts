@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Menu} from "./menu";
+import {Cart} from "./cart";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class MenuService {
 
   decreaseFoodNum(menuId: number, foodId: number) {
     return this.http.put<void>(`http://localhost:8080/cook/menus/${menuId}/foods/${foodId}/decrease`, null)
+  }
+
+  getCarts(menuId: number) {
+    return this.http.get<Cart[]>(`http://localhost:8080/cook/menus/${menuId}/carts`)
   }
 }

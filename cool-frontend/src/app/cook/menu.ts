@@ -8,6 +8,5 @@ export interface Menu {
   subtitle?: string
   description?: string
   categories: Category[]
-  carts: Cart[]
 
 }

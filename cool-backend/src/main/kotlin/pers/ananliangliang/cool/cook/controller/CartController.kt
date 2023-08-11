@@ -9,6 +9,9 @@ import pers.ananliangliang.cool.cook.service.CartService
 class CartController(
     private val service: CartService,
 ) {
+    @GetMapping("/menus/{menuId}/carts")
+    fun getCarts(@PathVariable menuId: Long) = service.getCarts(menuId)
+
 
     @PutMapping("/menus/{menuId}/foods/{foodId}/increase")
     fun increaseFood(@PathVariable menuId: Long, @PathVariable foodId: Long) = service.increaseFood(menuId, foodId)

@@ -20,5 +20,6 @@ mat-list-item>div {
 }
 
 mat-nav-list>button {
-  margin-left: 16px;
+  margin-left: 8px;
+  margin-top: 4px;
 }

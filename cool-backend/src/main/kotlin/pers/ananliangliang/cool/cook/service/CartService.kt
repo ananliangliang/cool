@@ -28,5 +28,7 @@ class CartService(
         }
     }
 
+    fun getCarts(menuId: Long) = repository.getByMenuId(menuId)
+
 
 }

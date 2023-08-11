@@ -3,6 +3,7 @@ import {MenuService} from "../menu.service";
 import {Menu} from "../menu";
 import {ActivatedRoute} from "@angular/router";
 import {Food} from "../food";
+import {Cart} from "../cart";
 
 @Component({
   selector: 'app-menu',
@@ -12,38 +13,43 @@ import {Food} from "../food";
 export class MenuComponent implements OnInit{
 
   menu: Menu | undefined
+  carts: Cart[] = []
+
   constructor(
     private route: ActivatedRoute,
     private service: MenuService,
   ) {
   }
   ngOnInit(): void {
-    this.service.getMenuById(parseInt(this.route.snapshot.paramMap.get('id')!))
-      .subscribe(it => this.menu = it)
+    const menuId = parseInt(this.route.snapshot.paramMap.get('id')!)
+    this.service.getMenuById(menuId).subscribe(it => this.menu = it)
+    this.service.getCarts(menuId).subscribe(it => this.carts = it)
   }
 
-  checkIfFoodInCart(menu?: Menu, food?: Food) {
-    return menu?.carts.some(it => it.foodId === food?.id)
+  checkIfFoodInCart(food: Food) {
+    return this.carts.some(it => it.foodId === food?.id)
   }
 
-  getFoodNum(menu?: Menu, food?: Food) {
-    return menu?.carts.find(it => it.foodId === food?.id)?.num
+  getFoodNum(food?: Food) {
+    return this.carts.find(it => it.foodId === food?.id)?.num
   }
 
 
   addFoodNum(food: Food) {
-    // if (foo)
-    //   food.cart.num++
-    // else
-    //   food.cart = {num: 1}
-    // this.service.increaseFoodNum(this.menu!.id, food.id).subscribe()
+    const cart = this.carts.find(it => it.foodId === food?.id);
+    if (cart)
+      cart.num++
+    else
+      this.carts.push({menuId: this.menu?.id!, foodId: food.id, num: 1})
+    this.service.increaseFoodNum(this.menu!.id, food.id).subscribe()
   }
 
   removeFoodNum(food: Food) {
-    // if (food.cart && food.cart.num !=1)
-    //   food.cart.num--
-    // else
-    //   food.cart = undefined
-    // this.service.decreaseFoodNum(this.menu!.id, food.id).subscribe()
+    const cart = this.carts.find(it => it.foodId === food?.id);
+    if (cart && cart.num !=1)
+      cart.num--
+    else
+      this.carts = this.carts.filter(it => it.foodId !== food?.id)
+    this.service.decreaseFoodNum(this.menu!.id, food.id).subscribe()
   }
 }
