@@ -5,15 +5,15 @@
   <mat-drawer #drawer >
     <mat-nav-list>
       <button mat-icon-button (click)="drawer.toggle()"><mat-icon>menu_open</mat-icon></button>
-      <mat-list-item>
+      <mat-list-item routerLink="/"  [activated]="getRouteUrl() == '/'" (click)="drawer.toggle()">
         <mat-icon matListItemIcon>home</mat-icon>
         <span matListItemTitle>首页</span>
       </mat-list-item>
-      <mat-list-item routerLink="/todo" (click)="drawer.toggle()">
+      <mat-list-item routerLink="/todo" [activated]="getRouteUrl() == '/todo'" (click)="drawer.toggle()">
         <mat-icon matListItemIcon>done_outlined</mat-icon>
         <span matListItemTitle>待办事项</span>
       </mat-list-item>
-      <mat-list-item routerLink="/cook/1" (click)="drawer.toggle()">
+      <mat-list-item routerLink="/cook/1" [activated]="getRouteUrl().startsWith('/cook')" (click)="drawer.toggle()">
         <mat-icon matListItemIcon>cookie</mat-icon>
         <span matListItemTitle>炸厨房</span>
       </mat-list-item>
