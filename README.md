@@ -6,7 +6,7 @@
 graph LR
 COOL[COOL] --> sys[系统]
 COOL --> todo[待办事项]
-COOL --> cook[烹饪]
+COOL --> cook[炸厨房]
 COOL --> chat[聊天]
 ```
 
@@ -21,3 +21,6 @@ todo
 | 技术          | 说明   | 官网  |
 |-------------|------|-----|
 | Spring Boot | 后端框架 | 123 |
+
+
+前端学习遇到了一些瓶颈，准备重新技术选型至react+next.js
