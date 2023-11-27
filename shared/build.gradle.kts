@@ -1,31 +1,34 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    
+    alias(libs.plugins.androidLibrary)
 }
 
 kotlin {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
-
-    jvm()
-    
     iosX64()
     iosArm64()
     iosSimulatorArm64()
     
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                //put your multiplatform dependencies here
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-            }
+    }
+
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+            // put your Multiplatform dependencies here
         }
     }
 }
 
+android {
+    namespace = "pers.ananliangliang.cool.shared"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+}
