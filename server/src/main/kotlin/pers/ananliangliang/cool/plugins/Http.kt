@@ -8,6 +8,6 @@ import java.io.File
 fun Application.configureHTTP() {
     routing {
         val swaggerFile = "docs/openapi.yml"
-        if (File(swaggerFile).exists()) swaggerUI(path = "swagger", swaggerFile = "docs/openapi.yml")
+        if (File(swaggerFile).exists()) swaggerUI(path = "openapi", swaggerFile = "docs/openapi.yml")
     }
 }

@@ -9,6 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.*
@@ -24,7 +27,7 @@ fun App() {
         var greetingText by remember { mutableStateOf("Hello World!") }
         var showImage by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Box (Modifier.weight(1f)){
+            Box(Modifier.weight(1f)) {
                 Button(onClick = {
                     greetingText = "Compose: ${Greeting().greet()}"
                     showImage = !showImage
@@ -40,17 +43,30 @@ fun App() {
                 )
             }
             var selectedItem by remember { mutableIntStateOf(0) }
-            val items = listOf("Songs", "Artists", "Playlists")
 
             NavigationBar {
-                items.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        icon = { Icon(Icons.Filled.Home, contentDescription = item) },
-                        label = { Text(item) },
-                        selected = selectedItem == index,
-                        onClick = { selectedItem = index }
-                    )
-                }
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            if (selectedItem == 0) Icons.Filled.Home else Icons.Outlined.Home,
+                            contentDescription = null
+                        )
+                    },
+                    label = { Text("Home") },
+                    selected = selectedItem == 0,
+                    onClick = { selectedItem = 0 }
+                )
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            if (selectedItem == 1) Icons.Filled.Person else Icons.Outlined.Person,
+                            contentDescription = null
+                        )
+                    },
+                    label = { Text("My") },
+                    selected = selectedItem == 1,
+                    onClick = { selectedItem = 1 }
+                )
             }
         }
     }
