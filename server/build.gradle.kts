@@ -12,8 +12,17 @@ application {
 }
 
 ktor {
-    fatJar {
-        archiveFileName.set("${rootProject.name}-$version.jar")
+    docker {
+        jreVersion.set(JavaVersion.VERSION_17)
+        localImageName.set(rootProject.name)
+        imageTag.set("$version")
+        externalRegistry.set(
+            io.ktor.plugin.features.DockerImageRegistry.dockerHub(
+                appName = provider { rootProject.name },
+                username = providers.environmentVariable("DOCKER_HUB_USERNAME"),
+                password = providers.environmentVariable("DOCKER_HUB_PASSWORD")
+            )
+        )
     }
 }
 
