@@ -15,8 +15,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         run: ./gradlew buildFatJar
-      - name: Docker build env
-        uses: docker/build-push-action@v5
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Publish a docker image to docker hub
         run: ./gradlew publishImage
       - uses: actions/upload-artifact@v3
