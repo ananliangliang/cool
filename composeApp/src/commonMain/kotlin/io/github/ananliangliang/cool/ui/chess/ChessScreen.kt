@@ -2,9 +2,11 @@ package io.github.ananliangliang.cool.ui.chess
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -17,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,7 +45,7 @@ private val pieceSymbols = mapOf(
 )
 
 @Composable
-fun ChessScreen(modifier: Modifier = Modifier) {
+fun ChessScreen(modifier: Modifier = Modifier.fillMaxSize()) {
     val pieces = remember { Board().boardToArray() }
 
 
@@ -50,9 +53,11 @@ fun ChessScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .background(BoardBackground)
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
 
+        LocalWindowInfo.current.containerSize
         // 绘制8行
         for (row in 7 downTo 0) {
             Row {
@@ -75,14 +80,12 @@ private fun ChessSquare(row: Int, col: Int, piece: Piece) {
 
     Box(
         modifier = Modifier
-            .size(80.dp)
+            .size(60.dp)
             .background(backgroundColor)
             .border(0.5.dp, Color.Black.copy(alpha = 0.1f)),
         contentAlignment = Alignment.Center
     ) {
-        if (piece != Piece.NONE) {
-            ChessPieceView(piece)
-        }
+        if (piece != Piece.NONE) ChessPieceView(piece)
     }
 }
 
@@ -93,7 +96,7 @@ private fun ChessPieceView(piece: Piece) {
 
     Box(
         modifier = Modifier
-            .size(64.dp)
+            .size(48.dp)
             .clip(CircleShape)
             .background(pieceColor.copy(alpha = 0.9f)),
         contentAlignment = Alignment.Center
