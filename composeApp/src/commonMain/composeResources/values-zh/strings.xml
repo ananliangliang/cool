@@ -1,0 +1,8 @@
+<resources>
+    <string name="task">任务</string>
+
+    <string name="created_at">创建于</string>
+
+    <string name="date_fmt">yyyy年MM月dd</string>
+    <string name="this_year_date_fmt">MM月dd</string>
+</resources>

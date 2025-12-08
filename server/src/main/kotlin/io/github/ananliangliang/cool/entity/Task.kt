@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.entity
+package io.github.ananliangliang.cool.entity
 
 
 import io.github.ananliangliang.cool.dto.todo.Task

@@ -12,8 +12,10 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun CoolNavigationBar(
@@ -26,7 +28,7 @@ fun CoolNavigationBar(
         val route: Any,
     )
     val navItems = listOf(
-        NavItem("CurrentApp", Icons.Filled.Home, Icons.Outlined.Home, CurrentApp),
+        NavItem("CurrentApp", Icons.Filled.Home, Icons.Outlined.Home, Apps.Todo.Task),
         NavItem("Apps", Icons.Filled.Apps, Icons.Outlined.Apps, Apps),
         NavItem("My", Icons.Filled.Person, Icons.Outlined.Person, Welcome),
     )

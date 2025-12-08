@@ -1,0 +1,8 @@
+<resources>
+    <string name="task">Task</string>
+
+    <string name="created_at">Created at</string>
+
+    <string name="date_fmt">yyyy-MM-dd</string>
+    <string name="this_year_date_fmt">MM-dd</string>
+</resources>

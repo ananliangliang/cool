@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.config
+package io.github.ananliangliang.cool.config
 
 import io.ktor.server.application.*
 import org.koin.core.module.dsl.singleOf
@@ -8,9 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder
 import org.springframework.security.crypto.password.NoOpPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import pers.ananliangliang.todo.service.AuthService
-import pers.ananliangliang.todo.service.TaskService
-import kotlin.math.sin
+import io.github.ananliangliang.cool.service.AuthService
+import io.github.ananliangliang.cool.service.TaskService
 
 fun Application.configureFrameworks() {
     install(Koin) {

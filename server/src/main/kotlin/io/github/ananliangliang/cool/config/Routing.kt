@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.config
+package io.github.ananliangliang.cool.config
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -14,8 +14,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
-import pers.ananliangliang.todo.service.AuthService
-import pers.ananliangliang.todo.service.TaskService
+import io.github.ananliangliang.cool.service.AuthService
+import io.github.ananliangliang.cool.service.TaskService
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.ExperimentalTime

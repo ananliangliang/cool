@@ -1,4 +1,4 @@
-package io.github.ananliangliang.cool.ui
+package io.github.ananliangliang.cool.ui.app
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

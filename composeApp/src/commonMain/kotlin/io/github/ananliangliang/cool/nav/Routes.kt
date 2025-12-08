@@ -4,7 +4,19 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-object Apps
+object Apps {
+    @Serializable
+    object Todo {
+        @Serializable
+        object Task
+        @Serializable
+        data class TaskDetail(val id: Long)
+    }
+    @Serializable
+    object Chess {
+
+    }
+}
 @Serializable
 object My
 @Serializable

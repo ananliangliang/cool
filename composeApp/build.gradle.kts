@@ -46,6 +46,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -59,6 +61,10 @@ kotlin {
             implementation(projects.shared)
 
             implementation(compose.materialIconsExtended)
+            implementation(libs.bundles.koin.compose)
+            implementation(libs.bundles.ktor.client)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.navigation.compose)
         }
         commonTest.dependencies {
@@ -67,6 +73,14 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+
+            implementation(libs.ktor.client.java)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+        webMain.dependencies {
+            implementation(libs.ktor.client.js)
         }
     }
 }

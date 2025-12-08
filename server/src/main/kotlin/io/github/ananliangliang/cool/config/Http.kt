@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.config
+package io.github.ananliangliang.cool.config
 
 import io.ktor.http.*
 import io.ktor.server.application.*

@@ -10,15 +10,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import io.github.ananliangliang.cool.di.koinModule
 import io.github.ananliangliang.cool.nav.CoolNavHost
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinApplication
 
 @Composable
 @Preview
-fun App() {
+fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     MaterialTheme(if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
 
         val navController = rememberNavController()
@@ -27,9 +31,14 @@ fun App() {
                 CoolNavigationBar(navController)
             },
         ) { paddingValues ->
-            Box(Modifier.padding(paddingValues)) {
-                CoolNavHost(navController)
+            KoinApplication({ modules(koinModule) }) {
+                Box(Modifier.padding(paddingValues)) {
+                    CoolNavHost(navController)
+                }
             }
+        }
+        LaunchedEffect(navController) {
+            onNavHostReady(navController)
         }
     }
 }

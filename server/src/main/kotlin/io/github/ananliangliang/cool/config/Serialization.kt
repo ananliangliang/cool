@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.config
+package io.github.ananliangliang.cool.config
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

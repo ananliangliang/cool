@@ -4,16 +4,23 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import io.github.ananliangliang.cool.ui.AppsScreen
-import io.github.ananliangliang.cool.ui.CurrentAppScreen
-import io.github.ananliangliang.cool.ui.WelcomeScreen
+import androidx.navigation.toRoute
+import io.github.ananliangliang.cool.ui.app.AppsScreen
+import io.github.ananliangliang.cool.ui.app.WelcomeScreen
+import io.github.ananliangliang.cool.ui.chess.ChessScreen
+import io.github.ananliangliang.cool.ui.task.TaskScreen
+import io.github.ananliangliang.cool.ui.task.detail.TaskDetailScreen
 
 @Composable
 fun CoolNavHost(navController: NavHostController) {
     NavHost(navController, startDestination = Welcome) {
         composable<Welcome> { WelcomeScreen() }
-        composable<CurrentApp> { CurrentAppScreen() }
-        composable<Apps> { AppsScreen() }
-        composable<CurrentApp> { CurrentAppScreen() }
+        composable<Apps.Todo.Task> { TaskScreen(navController) }
+        composable<Apps> { AppsScreen(navController) }
+        composable<Apps.Todo.TaskDetail> {
+            val args = it.toRoute<Apps.Todo.TaskDetail>()
+            TaskDetailScreen(navController, args.id)
+        }
+        composable<Apps.Chess> { ChessScreen() }
     }
 }

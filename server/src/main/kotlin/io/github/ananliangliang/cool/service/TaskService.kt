@@ -1,4 +1,4 @@
-package pers.ananliangliang.todo.service
+package io.github.ananliangliang.cool.service
 
 import io.github.ananliangliang.cool.dto.todo.Task
 import org.jetbrains.exposed.v1.core.eq
@@ -7,8 +7,8 @@ import org.jetbrains.exposed.v1.jdbc.deleteWhere
 import org.jetbrains.exposed.v1.jdbc.insertAndGetId
 import org.jetbrains.exposed.v1.jdbc.transactions.suspendTransaction
 import org.jetbrains.exposed.v1.jdbc.update
-import pers.ananliangliang.todo.entity.TaskEntity
-import pers.ananliangliang.todo.entity.TaskTable
+import io.github.ananliangliang.cool.entity.TaskEntity
+import io.github.ananliangliang.cool.entity.TaskTable
 
 
 class TaskService {
