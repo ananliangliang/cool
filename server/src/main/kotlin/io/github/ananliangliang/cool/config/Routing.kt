@@ -2,26 +2,26 @@ package pers.ananliangliang.todo.config
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import io.github.ananliangliang.cool.Greeting
+import io.github.ananliangliang.cool.dto.auth.LoginReq
+import io.github.ananliangliang.cool.dto.todo.Task
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.authenticate
-import io.ktor.server.auth.authentication
-import io.ktor.server.auth.jwt.JWTPrincipal
-import io.ktor.server.plugins.NotFoundException
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.datetime.Clock
-import kotlinx.datetime.toJavaInstant
 import org.koin.ktor.ext.inject
-import pers.ananliangliang.todo.Greeting
-import pers.ananliangliang.todo.dto.Task
-import pers.ananliangliang.todo.dto.auth.LoginReq
 import pers.ananliangliang.todo.service.AuthService
 import pers.ananliangliang.todo.service.TaskService
-import kotlin.time.Duration
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.ExperimentalTime
+import kotlin.time.toJavaInstant
 
+@OptIn(ExperimentalTime::class)
 fun Application.configureRouting() {
 
     routing {

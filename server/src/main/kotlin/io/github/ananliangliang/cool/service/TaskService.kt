@@ -1,13 +1,12 @@
 package pers.ananliangliang.todo.service
 
-import kotlinx.coroutines.Dispatchers
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insertAndGetId
-import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestampWithTimeZone
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.jetbrains.exposed.sql.update
-import pers.ananliangliang.todo.dto.Task
+import io.github.ananliangliang.cool.dto.todo.Task
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.datetime.CurrentTimestampWithTimeZone
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insertAndGetId
+import org.jetbrains.exposed.v1.jdbc.transactions.suspendTransaction
+import org.jetbrains.exposed.v1.jdbc.update
 import pers.ananliangliang.todo.entity.TaskEntity
 import pers.ananliangliang.todo.entity.TaskTable
 
@@ -15,26 +14,26 @@ import pers.ananliangliang.todo.entity.TaskTable
 class TaskService {
 
 
-    suspend fun selectAll() = newSuspendedTransaction(Dispatchers.IO) {
+    suspend fun selectAll() = suspendTransaction {
         TaskEntity.all().map { it.toDto() }
     }
 
-    suspend fun selectById(id: Long): Task? = newSuspendedTransaction(Dispatchers.IO) {
+    suspend fun selectById(id: Long): Task? = suspendTransaction {
         TaskEntity.findById(id)?.toDto()
     }
 
-    suspend fun create(task: Task): Long = newSuspendedTransaction(Dispatchers.IO) {
+    suspend fun create(task: Task): Long = suspendTransaction {
         TaskTable.insertAndGetId {
             it[name] = requireNotNull(task.name)
             it[note] = task.note
         }.value
     }
 
-    suspend fun delete(id: Long) = newSuspendedTransaction(Dispatchers.IO) {
+    suspend fun delete(id: Long) = suspendTransaction {
         TaskTable.deleteWhere { TaskTable.id eq id }
     }
 
-    suspend fun update(id: Long, task: Task) = newSuspendedTransaction {
+    suspend fun update(id: Long, task: Task) = suspendTransaction {
         TaskTable.update({ TaskTable.id eq id }) {
             it[name] = requireNotNull(task.name)
             it[note] = task.note
@@ -43,7 +42,7 @@ class TaskService {
         }
     }
 
-    suspend fun updatePartially(id: Long, task: Task) = newSuspendedTransaction {
+    suspend fun updatePartially(id: Long, task: Task) = suspendTransaction {
         TaskTable.update({ TaskTable.id eq id }) {
             if (task.name != null) it[name] = task.name!!
             if (task.note != null) it[note] = task.note

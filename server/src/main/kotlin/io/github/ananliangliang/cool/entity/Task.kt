@@ -1,15 +1,15 @@
 package pers.ananliangliang.todo.entity
 
-import kotlinx.datetime.toKotlinInstant
-import org.jetbrains.exposed.dao.LongEntity
-import org.jetbrains.exposed.dao.LongEntityClass
-import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.LongIdTable
-import org.jetbrains.exposed.sql.kotlin.datetime.CurrentDate
-import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestamp
-import org.jetbrains.exposed.sql.kotlin.datetime.CurrentTimestampWithTimeZone
-import org.jetbrains.exposed.sql.kotlin.datetime.timestampWithTimeZone
-import pers.ananliangliang.todo.dto.Task
+
+import io.github.ananliangliang.cool.dto.todo.Task
+import org.jetbrains.exposed.v1.core.dao.id.EntityID
+import org.jetbrains.exposed.v1.core.dao.id.LongIdTable
+import org.jetbrains.exposed.v1.dao.LongEntity
+import org.jetbrains.exposed.v1.dao.LongEntityClass
+import org.jetbrains.exposed.v1.datetime.CurrentTimestampWithTimeZone
+import org.jetbrains.exposed.v1.datetime.timestampWithTimeZone
+import kotlin.time.ExperimentalTime
+import kotlin.time.toKotlinInstant
 
 object TaskTable : LongIdTable() {
     val name = text("name")
@@ -33,6 +33,7 @@ class TaskEntity(id: EntityID<Long>) : LongEntity(id) {
     var importantAt by TaskTable.importantAt
     var createdById by TaskTable.createdById
 
+    @OptIn(ExperimentalTime::class)
     fun toDto() = Task(
         id = id.value,
         name = name,
