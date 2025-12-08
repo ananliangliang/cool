@@ -66,6 +66,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.navigation.compose)
+            implementation("io.github.cvb941:kchesslib:1.0.4")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
