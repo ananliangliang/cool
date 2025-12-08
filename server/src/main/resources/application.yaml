@@ -1,0 +1,14 @@
+ktor:
+  application:
+    modules:
+      - io.github.ananliangliang.cool.ApplicationKt.module
+  deployment:
+    port: 8080
+    rootPath: /api
+jwt:
+  secret: secret
+  issuer: "https://qifeng.icu"
+postgres:
+  url: "jdbc:postgresql://localhost/postgres"
+  user: postgres
+  password: ${DB_PASSWORD}
