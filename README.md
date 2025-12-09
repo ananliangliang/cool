@@ -1,3 +1,7 @@
+# TODO
+* 拓展color scheme以适应棋盘相关颜色
+* 获取窗口大小以适配棋盘
+
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.

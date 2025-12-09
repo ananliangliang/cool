@@ -5,6 +5,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import io.github.ananliangliang.cool.data.network.ApiService
 import io.github.ananliangliang.cool.data.network.httpClient
+import io.github.ananliangliang.cool.ui.chess.ChessViewModel
 import io.github.ananliangliang.cool.ui.task.TaskViewModel
 import io.github.ananliangliang.cool.ui.task.detail.TaskDetailViewModel
 import io.github.ananliangliang.cool.ui.task.list.TaskListViewModel
@@ -15,4 +16,5 @@ val koinModule = module {
     viewModelOf(::TaskViewModel)
     viewModelOf(::TaskDetailViewModel)
     viewModelOf(::TaskListViewModel)
+    viewModelOf(::ChessViewModel)
 }
