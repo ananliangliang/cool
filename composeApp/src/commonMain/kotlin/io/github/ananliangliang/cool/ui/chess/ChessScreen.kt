@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -28,12 +29,8 @@ import com.github.bhlangonijr.chesslib.Board
 import com.github.bhlangonijr.chesslib.Piece
 import com.github.bhlangonijr.chesslib.PieceType
 import com.github.bhlangonijr.chesslib.Side
+import io.github.ananliangliang.cool.ui.theme.ChessTheme
 
-private val DarkSquare = Color(0xFF2C3E50)
-private val LightSquare = Color(0xFF34495E)
-private val BoardBackground = Color(0xFF1A252F)
-private val WhitePiece = Color(0xFFE8E8E8)
-private val BlackPiece = Color(0xFF6B7D8F)
 
 private val pieceSymbols = mapOf(
     PieceType.KING to "♔",
@@ -46,37 +43,42 @@ private val pieceSymbols = mapOf(
 
 @Composable
 fun ChessScreen(modifier: Modifier = Modifier.fillMaxSize()) {
-    val pieces = remember { Board().boardToArray() }
+    ChessTheme {
+        val pieces = remember { Board().boardToArray() }
 
 
-    Column(
-        modifier = modifier
-            .background(BoardBackground)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+        Column(
+            modifier = modifier
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
 
-        LocalWindowInfo.current.containerSize
-        // 绘制8行
-        for (row in 7 downTo 0) {
-            Row {
-                // 绘制8列
-                for (col in 0..7) {
-                    ChessSquare(
-                        row = row,
-                        col = col,
-                        piece = pieces[row * 8 + col]
-                    )
+            LocalWindowInfo.current.containerSize
+            // 绘制8行
+            for (row in 7 downTo 0) {
+                Row {
+                    // 绘制8列
+                    for (col in 0..7) {
+                        ChessSquare(
+                            row = row,
+                            col = col,
+                            piece = pieces[row * 8 + col]
+                        )
+                    }
                 }
             }
         }
     }
+
 }
 
 @Composable
 private fun ChessSquare(row: Int, col: Int, piece: Piece) {
-    val backgroundColor = if ((row + col) % 2 == 1) DarkSquare else LightSquare
+    val backgroundColor =
+        if ((row + col) % 2 == 1) MaterialTheme.colorScheme.surfaceVariant
+        else MaterialTheme.colorScheme.surface
 
     Box(
         modifier = Modifier
@@ -92,7 +94,7 @@ private fun ChessSquare(row: Int, col: Int, piece: Piece) {
 @Composable
 private fun ChessPieceView(piece: Piece) {
     val isWhite = piece.pieceSide == Side.WHITE
-    val pieceColor = if (isWhite) WhitePiece else BlackPiece
+    val pieceColor = if (isWhite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
 
     Box(
         modifier = Modifier
@@ -104,7 +106,7 @@ private fun ChessPieceView(piece: Piece) {
         Text(
             text = pieceSymbols[piece.pieceType].orEmpty(),
             fontSize = 40.sp,
-            color = if (isWhite) DarkSquare else LightSquare,
+            color = if (isWhite) MaterialTheme.colorScheme.surfaceVariant  else MaterialTheme.colorScheme.surface,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
