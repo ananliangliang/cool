@@ -7,6 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.graphicsLayer
 
 fun Modifier.legalMoveTo(enable: Boolean = true) = composed {
     if (!enable) return@composed this
@@ -46,4 +49,33 @@ fun Modifier.legalMoveTo(enable: Boolean = true) = composed {
                 )
             }
     )
+}
+
+
+fun Modifier.swing(
+    enable: Boolean = true,
+    duration: Int = 200, // 晃动周期（毫秒）
+    angle: Float = 5f // 最大晃动角度
+): Modifier = composed {
+    if (!enable) return@composed this
+
+    val infiniteTransition = rememberInfiniteTransition(label = "swing")
+
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = -angle,
+        targetValue = angle,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = duration,
+                easing = LinearEasing
+            ),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "rotation"
+    )
+
+    this.graphicsLayer {
+        rotationZ = rotation
+        transformOrigin = TransformOrigin.Center
+    }
 }

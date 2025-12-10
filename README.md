@@ -1,5 +1,4 @@
 # TODO
-* 获取窗口大小以适配棋盘
 * 能吃子的背景高亮
 * 吃子和被吃子动画
 * 移动动画
@@ -8,6 +7,8 @@
 * 判负
 * 计分器
 * 棋子图标
+* 拖动棋子
+* 升变
 
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
 

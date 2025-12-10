@@ -27,4 +27,8 @@ class ChessViewModel : ViewModel() {
         }
     }
 
+    fun restartGame() {
+        uiState = ChessUiState()
+    }
+
 }

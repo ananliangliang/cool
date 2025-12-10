@@ -1,22 +1,18 @@
 package io.github.ananliangliang.cool.ui.chess
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,50 +22,75 @@ import com.github.bhlangonijr.chesslib.Piece
 import com.github.bhlangonijr.chesslib.Side
 import com.github.bhlangonijr.chesslib.Square
 import io.github.ananliangliang.cool.ui.legalMoveTo
-import io.github.ananliangliang.cool.ui.theme.ChessTheme
-import io.github.ananliangliang.cool.ui.theme.blackPiece
-import io.github.ananliangliang.cool.ui.theme.darkSquare
-import io.github.ananliangliang.cool.ui.theme.lightSquare
-import io.github.ananliangliang.cool.ui.theme.whitePiece
+import io.github.ananliangliang.cool.ui.swing
+import io.github.ananliangliang.cool.ui.theme.*
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 
 @Preview
 @Composable
-fun ChessScreen(modifier: Modifier = Modifier.fillMaxSize(), viewModel: ChessViewModel = koinViewModel()) {
+fun ChessScreen(viewModel: ChessViewModel = koinViewModel()) {
     ChessTheme {
-        val pieces = viewModel.uiState.board.boardToArray()
-
-        Column(
-            modifier = modifier
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.Center
         ) {
-
-            // 绘制8行
-            for (row in 8 downTo 1) {
-                Row {
-                    // 绘制8列
-                    for (col in 'A'..'H') {
-                        ChessSquare(
-                            row = row,
-                            col = col,
-                            piece = pieces[(row - 1) * 8 + (col - 'A')]
-                        )
+            val board = viewModel.uiState.board
+            val pieces = viewModel.uiState.board.boardToArray()
+            if (board.legalMoves().isEmpty()) {
+                Column {
+                    Text(board.sideToMove.name + "lose")
+                    Button(onClick = { viewModel.restartGame() }) {
+                        Text("Restart Game")
                     }
                 }
-            }
+            }else ChessBoard(pieces)
+
         }
+        val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+//        val containerSize = LocalWindowInfo.current.containerSize
+//        println(containerSize.let { "${it.width} x ${it.height}" })
+//        println(windowSizeClass.let { "${it.minWidthDp} ${it.minHeightDp}" })
+        BoxWithConstraints {
+
+
+            println("$maxWidth x $maxHeight $minWidth $minHeight")
+        }
+
+
     }
 
 }
 
+@Composable
+private fun ChessBoard(pieces: Array<Piece>) {
+    Column(
+        modifier = Modifier
+            .size(600.dp)
+            .aspectRatio(1f)
+    ) {
+
+        // 绘制8行
+        for (row in 8 downTo 1) {
+            Row(Modifier.weight(1f)) {
+                // 绘制8列
+                for (col in 'A'..'H') {
+                    ChessSquare(
+                        row = row,
+                        col = col,
+                        piece = pieces[(row - 1) * 8 + (col - 'A')],
+                        Modifier.weight(1f),
+                    )
+                }
+            }
+        }
+    }
+}
 
 @Composable
-private fun ChessSquare(row: Int, col: Char, piece: Piece, viewModel: ChessViewModel = koinViewModel()) {
+private fun ChessSquare(row: Int, col: Char, piece: Piece,
+                        modifier: Modifier = Modifier,
+                        viewModel: ChessViewModel = koinViewModel()) {
     val currentSquare = Square.valueOf("$col$row")
     val board = viewModel.uiState.board
     val selectedSquare = viewModel.uiState.selectedSquare
@@ -82,11 +103,12 @@ private fun ChessSquare(row: Int, col: Char, piece: Piece, viewModel: ChessViewM
     val canMoveTo = board.legalMoves().filter { it.from == selectedSquare }.any { it.to == currentSquare }
     val isSquareClickable = isSelected || canMoveTo || (selectedSquare == Square.NONE && piece.pieceSide == board.sideToMove)
 
+    val swingPiece = board.getKingSquare(board.sideToMove) == currentSquare && board.isKingAttacked
+
     Box(
-        modifier = Modifier
-            .size(60.dp)
+        modifier = modifier
+            .fillMaxSize()
             .background(backgroundColor)
-            .border(0.5.dp, Color.Black.copy(alpha = 0.1f))
             .clickable(isSquareClickable) {
                 if (viewModel.uiState.selectedSquare == Square.NONE) {
                     if (piece != Piece.NONE) {
@@ -102,18 +124,19 @@ private fun ChessSquare(row: Int, col: Char, piece: Piece, viewModel: ChessViewM
             }.legalMoveTo(canMoveTo),
         contentAlignment = Alignment.Center
     ) {
-        if (piece != Piece.NONE) ChessPieceView(piece)
+        if (piece != Piece.NONE) ChessPieceView(piece, swingPiece)
     }
 }
 
 @Composable
-private fun ChessPieceView(piece: Piece) {
+private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
     val isWhite = piece.pieceSide == Side.WHITE
     val pieceColor = if (isWhite) MaterialTheme.colorScheme.whitePiece else MaterialTheme.colorScheme.blackPiece
 
     Box(
-        modifier = Modifier
-            .size(48.dp)
+        modifier = Modifier.swing(swing)
+            .fillMaxSize()
+            .scale(0.8F)
             .clip(CircleShape)
             .background(pieceColor.copy(alpha = 0.9f)),
         contentAlignment = Alignment.Center

@@ -67,6 +67,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.navigation.compose)
             implementation("io.github.cvb941:kchesslib:1.0.4")
+            implementation("org.jetbrains.compose.material3.adaptive:adaptive:1.2.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
