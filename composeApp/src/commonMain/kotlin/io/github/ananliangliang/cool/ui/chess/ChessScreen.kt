@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,7 +25,12 @@ import androidx.compose.ui.unit.sp
 import com.github.bhlangonijr.chesslib.Piece
 import com.github.bhlangonijr.chesslib.Side
 import com.github.bhlangonijr.chesslib.Square
+import io.github.ananliangliang.cool.ui.legalMoveTo
 import io.github.ananliangliang.cool.ui.theme.ChessTheme
+import io.github.ananliangliang.cool.ui.theme.blackPiece
+import io.github.ananliangliang.cool.ui.theme.darkSquare
+import io.github.ananliangliang.cool.ui.theme.lightSquare
+import io.github.ananliangliang.cool.ui.theme.whitePiece
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -51,7 +53,7 @@ fun ChessScreen(modifier: Modifier = Modifier.fillMaxSize(), viewModel: ChessVie
             for (row in 8 downTo 1) {
                 Row {
                     // 绘制8列
-                    for (col in 'A'..'G') {
+                    for (col in 'A'..'H') {
                         ChessSquare(
                             row = row,
                             col = col,
@@ -68,31 +70,36 @@ fun ChessScreen(modifier: Modifier = Modifier.fillMaxSize(), viewModel: ChessVie
 
 @Composable
 private fun ChessSquare(row: Int, col: Char, piece: Piece, viewModel: ChessViewModel = koinViewModel()) {
-    val square = Square.valueOf("$col$row")
-    val isSelected = viewModel.uiState.selectedSquare == square
+    val currentSquare = Square.valueOf("$col$row")
+    val board = viewModel.uiState.board
+    val selectedSquare = viewModel.uiState.selectedSquare
+    val isSelected = selectedSquare == currentSquare
     val baseBackgroundColor =
-        if ((row + (col - 'A')) % 2 == 0) MaterialTheme.colorScheme.surfaceVariant
-        else MaterialTheme.colorScheme.surface
+        if ((row + (col - 'A')) % 2 == 0) MaterialTheme.colorScheme.darkSquare
+        else MaterialTheme.colorScheme.lightSquare
     val backgroundColor = if (isSelected) Color.Yellow.copy(alpha = 0.5f) else baseBackgroundColor
+
+    val canMoveTo = board.legalMoves().filter { it.from == selectedSquare }.any { it.to == currentSquare }
+    val isSquareClickable = isSelected || canMoveTo || (selectedSquare == Square.NONE && piece.pieceSide == board.sideToMove)
 
     Box(
         modifier = Modifier
             .size(60.dp)
             .background(backgroundColor)
             .border(0.5.dp, Color.Black.copy(alpha = 0.1f))
-            .clickable {
+            .clickable(isSquareClickable) {
                 if (viewModel.uiState.selectedSquare == Square.NONE) {
                     if (piece != Piece.NONE) {
-                        viewModel.selectSquare(square)
+                        viewModel.selectSquare(currentSquare)
                     }
                 } else {
-                    if (viewModel.uiState.selectedSquare == square) {
+                    if (viewModel.uiState.selectedSquare == currentSquare) {
                         viewModel.selectSquare(Square.NONE)
                     } else {
-                        viewModel.doMove(square)
+                        viewModel.doMove(currentSquare)
                     }
                 }
-            },
+            }.legalMoveTo(canMoveTo),
         contentAlignment = Alignment.Center
     ) {
         if (piece != Piece.NONE) ChessPieceView(piece)
@@ -102,7 +109,7 @@ private fun ChessSquare(row: Int, col: Char, piece: Piece, viewModel: ChessViewM
 @Composable
 private fun ChessPieceView(piece: Piece) {
     val isWhite = piece.pieceSide == Side.WHITE
-    val pieceColor = if (isWhite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+    val pieceColor = if (isWhite) MaterialTheme.colorScheme.whitePiece else MaterialTheme.colorScheme.blackPiece
 
     Box(
         modifier = Modifier
@@ -114,7 +121,7 @@ private fun ChessPieceView(piece: Piece) {
         Text(
             text = piece.fanSymbol,
             fontSize = 40.sp,
-            color = if (isWhite) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface,
+            color = if (isWhite) MaterialTheme.colorScheme.blackPiece else MaterialTheme.colorScheme.whitePiece,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )

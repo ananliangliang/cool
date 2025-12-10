@@ -1,6 +1,13 @@
 # TODO
-* 拓展color scheme以适应棋盘相关颜色
 * 获取窗口大小以适配棋盘
+* 能吃子的背景高亮
+* 吃子和被吃子动画
+* 移动动画
+* 拖拽棋子
+* 将军抖动王
+* 判负
+* 计分器
+* 棋子图标
 
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
 
