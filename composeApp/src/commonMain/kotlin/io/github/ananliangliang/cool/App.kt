@@ -11,12 +11,17 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import io.github.ananliangliang.cool.di.koinModule
 import io.github.ananliangliang.cool.nav.CoolNavHost
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
+import io.github.ananliangliang.cool.ui.login.LoginScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 
@@ -26,17 +31,23 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     MaterialTheme(if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
 
         val navController = rememberNavController()
-        Scaffold(
-            bottomBar = {
-                CoolNavigationBar(navController)
-            },
-        ) { paddingValues ->
-            KoinApplication({ modules(koinModule) }) {
-                Box(Modifier.padding(paddingValues)) {
-                    CoolNavHost(navController)
+        var isLogin by remember { mutableStateOf(false) }
+
+
+        if (isLogin)
+            Scaffold(
+                bottomBar = {
+                    CoolNavigationBar(navController)
+                },
+            ) { paddingValues ->
+                KoinApplication({ modules(koinModule) }) {
+                    Box(Modifier.padding(paddingValues)) {
+                        CoolNavHost(navController)
+                    }
                 }
             }
-        }
+        else
+            LoginScreen({ isLogin = true })
         LaunchedEffect(navController) {
             onNavHostReady(navController)
         }

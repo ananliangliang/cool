@@ -19,8 +19,3 @@ class UserEntity(id: EntityID<Long>) : LongEntity(id) {
     var password by UserTable.password
 }
 
-fun main() {
-    println(UserTable.tableName)
-    println(TaskTable.tableName)
-}
-

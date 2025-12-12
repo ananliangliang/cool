@@ -13,10 +13,6 @@ import androidx.compose.ui.unit.dp
 fun MyScreen() {
     Text("My Screen")
 
-
-        BoxWithConstraints {
-            println("$maxWidth x $maxHeight $minWidth x $minHeight")
-        }
     Box(Modifier.fillMaxSize().background(Color.Red), contentAlignment = Alignment.Center) {
         Box(
             Modifier

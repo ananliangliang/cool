@@ -47,18 +47,29 @@ fun ChessScreen(viewModel: ChessViewModel = koinViewModel()) {
             }else ChessBoard(pieces)
 
         }
-        val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
-//        val containerSize = LocalWindowInfo.current.containerSize
-//        println(containerSize.let { "${it.width} x ${it.height}" })
-//        println(windowSizeClass.let { "${it.minWidthDp} ${it.minHeightDp}" })
-        BoxWithConstraints {
-
-
-            println("$maxWidth x $maxHeight $minWidth $minHeight")
-        }
 
 
     }
+
+}
+
+@Composable
+fun Room() {
+
+    Row {
+        Table()
+        Table()
+    }
+}
+
+@Composable
+fun Table(isLocal: Boolean = true) {
+
+
+
+}
+@Composable
+fun Seat() {
 
 }
 

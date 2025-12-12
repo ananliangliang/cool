@@ -2,13 +2,13 @@ package io.github.ananliangliang.cool.ui
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.graphicsLayer
 
 fun Modifier.legalMoveTo(enable: Boolean = true) = composed {
@@ -30,6 +30,7 @@ fun Modifier.legalMoveTo(enable: Boolean = true) = composed {
     )
 
 
+    val color = MaterialTheme.colorScheme.onBackground
     this.then(
         Modifier.fillMaxSize()
             .drawWithContent {
@@ -41,12 +42,7 @@ fun Modifier.legalMoveTo(enable: Boolean = true) = composed {
                 val baseRadius = minOf(size.width, size.height) * 0.15f
                 val radius = baseRadius * scale
 
-                drawCircle(
-                    color = Color.White,
-                    radius = radius,
-                    center = androidx.compose.ui.geometry.Offset(centerX, centerY),
-                    alpha = 0.6F
-                )
+                drawCircle(color, radius, Offset(centerX, centerY), 0.3F)
             }
     )
 }
