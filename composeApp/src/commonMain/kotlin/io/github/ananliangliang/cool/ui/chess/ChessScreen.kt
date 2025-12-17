@@ -1,5 +1,6 @@
 package io.github.ananliangliang.cool.ui.chess
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -7,7 +8,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +19,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.bhlangonijr.chesslib.Piece
+import com.github.bhlangonijr.chesslib.PieceType
 import com.github.bhlangonijr.chesslib.Side
 import com.github.bhlangonijr.chesslib.Square
+import cool.composeapp.generated.resources.Res
+import cool.composeapp.generated.resources.chess_black_pawn
+import cool.composeapp.generated.resources.chess_white_pawn
 import io.github.ananliangliang.cool.ui.legalMoveTo
 import io.github.ananliangliang.cool.ui.swing
 import io.github.ananliangliang.cool.ui.theme.*
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -144,6 +149,14 @@ private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
     val isWhite = piece.pieceSide == Side.WHITE
     val pieceColor = if (isWhite) MaterialTheme.colorScheme.whitePiece else MaterialTheme.colorScheme.blackPiece
 
+
+
+    if (piece.pieceSide == Side.BLACK && piece.pieceType == PieceType.PAWN) {
+        Image(painterResource(Res.drawable.chess_black_pawn), contentDescription = null)
+    } else if(piece.pieceSide == Side.WHITE && piece.pieceType == PieceType.PAWN) {
+        Image(painterResource(Res.drawable.chess_white_pawn), null)
+    } else {
+
     Box(
         modifier = Modifier.swing(swing)
             .fillMaxSize()
@@ -159,5 +172,6 @@ private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
+    }
     }
 }
