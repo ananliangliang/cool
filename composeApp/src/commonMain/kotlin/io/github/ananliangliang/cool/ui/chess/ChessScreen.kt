@@ -22,9 +22,7 @@ import com.github.bhlangonijr.chesslib.Piece
 import com.github.bhlangonijr.chesslib.PieceType
 import com.github.bhlangonijr.chesslib.Side
 import com.github.bhlangonijr.chesslib.Square
-import cool.composeapp.generated.resources.Res
-import cool.composeapp.generated.resources.chess_black_pawn
-import cool.composeapp.generated.resources.chess_white_pawn
+import cool.composeapp.generated.resources.*
 import io.github.ananliangliang.cool.ui.legalMoveTo
 import io.github.ananliangliang.cool.ui.swing
 import io.github.ananliangliang.cool.ui.theme.*
@@ -149,29 +147,32 @@ private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
     val isWhite = piece.pieceSide == Side.WHITE
     val pieceColor = if (isWhite) MaterialTheme.colorScheme.whitePiece else MaterialTheme.colorScheme.blackPiece
 
-
-
-    if (piece.pieceSide == Side.BLACK && piece.pieceType == PieceType.PAWN) {
+    if (piece.pieceType == PieceType.BISHOP || piece.pieceSide == Side.WHITE)
+        Box(
+            modifier = Modifier.swing(swing)
+                .fillMaxSize()
+                .scale(0.8F)
+                .clip(CircleShape)
+                .background(pieceColor.copy(alpha = 0.9f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = piece.fanSymbol,
+                fontSize = 40.sp,
+                color = if (isWhite) MaterialTheme.colorScheme.blackPiece else MaterialTheme.colorScheme.whitePiece,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
+    else if (piece.pieceType == PieceType.PAWN)
         Image(painterResource(Res.drawable.chess_black_pawn), contentDescription = null)
-    } else if(piece.pieceSide == Side.WHITE && piece.pieceType == PieceType.PAWN) {
-        Image(painterResource(Res.drawable.chess_white_pawn), null)
-    } else {
+    else if (piece.pieceType == PieceType.ROOK)
+        Image(painterResource(Res.drawable.chess_rook_black), contentDescription = null)
+    else if (piece.pieceType == PieceType.KNIGHT)
+        Image(painterResource(Res.drawable.chess_knight_black), contentDescription = null)
+    else if (piece.pieceType == PieceType.QUEEN)
+        Image(painterResource(Res.drawable.chess_queen_black), contentDescription = null)
+    else if (piece.pieceType == PieceType.KING)
+        Image(painterResource(Res.drawable.chess_king_black), contentDescription = null)
 
-    Box(
-        modifier = Modifier.swing(swing)
-            .fillMaxSize()
-            .scale(0.8F)
-            .clip(CircleShape)
-            .background(pieceColor.copy(alpha = 0.9f)),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = piece.fanSymbol,
-            fontSize = 40.sp,
-            color = if (isWhite) MaterialTheme.colorScheme.blackPiece else MaterialTheme.colorScheme.whitePiece,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-    }
-    }
 }
