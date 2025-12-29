@@ -1,5 +1,8 @@
 package io.github.ananliangliang.cool.ui.chess
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,11 +38,12 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ChessScreen(viewModel: ChessViewModel = koinViewModel()) {
     ChessTheme {
-        Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        Box(
+            Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
-            val board = viewModel.uiState.board
-            val pieces = viewModel.uiState.board.boardToArray()
+            val board = viewModel.getBoard()
+            val pieces = board.boardToArray()
             if (board.legalMoves().isEmpty()) {
                 Column {
                     Text(board.sideToMove.name + "lose")
@@ -47,7 +51,7 @@ fun ChessScreen(viewModel: ChessViewModel = koinViewModel()) {
                         Text("Restart Game")
                     }
                 }
-            }else ChessBoard(pieces)
+            } else ChessBoard(pieces, viewModel.uiState.fen)
 
         }
 
@@ -69,15 +73,20 @@ fun Room() {
 fun Table(isLocal: Boolean = true) {
 
 
-
 }
+
 @Composable
 fun Seat() {
 
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun ChessBoard(pieces: Array<Piece>) {
+private fun ChessBoard(pieces: Array<Piece>, fen: String) {
+    SharedTransitionLayout {
+        AnimatedContent(fen) {
+
+
     Column(
         modifier = Modifier
             .size(600.dp)
@@ -89,24 +98,32 @@ private fun ChessBoard(pieces: Array<Piece>) {
             Row(Modifier.weight(1f)) {
                 // 绘制8列
                 for (col in 'A'..'H') {
+                    val piece = pieces[(row - 1) * 8 + (col - 'A')]
                     ChessSquare(
                         row = row,
                         col = col,
-                        piece = pieces[(row - 1) * 8 + (col - 'A')],
-                        Modifier.weight(1f),
+                        piece = piece,
+                        Modifier.weight(1f)
+                            .sharedElement(rememberSharedContentState(piece.fanSymbol),
+                                this@AnimatedContent)
+                        ,
                     )
                 }
             }
         }
     }
+        }
+    }
 }
 
 @Composable
-private fun ChessSquare(row: Int, col: Char, piece: Piece,
-                        modifier: Modifier = Modifier,
-                        viewModel: ChessViewModel = koinViewModel()) {
+private fun ChessSquare(
+    row: Int, col: Char, piece: Piece,
+    modifier: Modifier = Modifier,
+    viewModel: ChessViewModel = koinViewModel()
+) {
     val currentSquare = Square.valueOf("$col$row")
-    val board = viewModel.uiState.board
+    val board = viewModel.getBoard()
     val selectedSquare = viewModel.uiState.selectedSquare
     val isSelected = selectedSquare == currentSquare
     val baseBackgroundColor =
@@ -115,7 +132,8 @@ private fun ChessSquare(row: Int, col: Char, piece: Piece,
     val backgroundColor = if (isSelected) Color.Yellow.copy(alpha = 0.5f) else baseBackgroundColor
 
     val canMoveTo = board.legalMoves().filter { it.from == selectedSquare }.any { it.to == currentSquare }
-    val isSquareClickable = isSelected || canMoveTo || (selectedSquare == Square.NONE && piece.pieceSide == board.sideToMove)
+    val isSquareClickable =
+        isSelected || canMoveTo || (selectedSquare == Square.NONE && piece.pieceSide == board.sideToMove)
 
     val swingPiece = board.getKingSquare(board.sideToMove) == currentSquare && board.isKingAttacked
 
@@ -153,7 +171,8 @@ private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
                 .fillMaxSize()
                 .scale(0.8F)
                 .clip(CircleShape)
-                .background(pieceColor.copy(alpha = 0.9f)),
+                .background(pieceColor.copy(alpha = 0.9f))
+            ,
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -165,7 +184,7 @@ private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
             )
         }
     else if (piece.pieceType == PieceType.PAWN)
-        Image(painterResource(Res.drawable.chess_black_pawn), contentDescription = null)
+        Image(painterResource(Res.drawable.chess_pawn_black), contentDescription = null)
     else if (piece.pieceType == PieceType.ROOK)
         Image(painterResource(Res.drawable.chess_rook_black), contentDescription = null)
     else if (piece.pieceType == PieceType.KNIGHT)

@@ -8,6 +8,7 @@
 * 棋子图标(描边未完成)
 * 拖动棋子
 * 升变
+* 为项目添加docker compose
 
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
 

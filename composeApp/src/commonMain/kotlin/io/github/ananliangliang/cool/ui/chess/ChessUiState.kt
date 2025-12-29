@@ -5,6 +5,6 @@ import com.github.bhlangonijr.chesslib.Square
 
 
 data class ChessUiState(
-    val board: Board = Board(),
+    val fen: String = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     val selectedSquare: Square = Square.NONE,
 )
