@@ -104,7 +104,7 @@ private fun ChessBoard(pieces: Array<Piece>, fen: String) {
                         col = col,
                         piece = piece,
                         Modifier.weight(1f)
-                            .sharedElement(rememberSharedContentState(piece.fanSymbol),
+                            .sharedElement(rememberSharedContentState((row - 1) * 8 + (col - 'A')),
                                 this@AnimatedContent)
                         ,
                     )
