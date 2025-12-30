@@ -3,8 +3,6 @@ package io.github.ananliangliang.cool
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.darkColorScheme
@@ -21,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import io.github.ananliangliang.cool.di.koinModule
 import io.github.ananliangliang.cool.nav.CoolNavHost
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
-import io.github.ananliangliang.cool.ui.login.LoginScreen
+import io.github.ananliangliang.cool.ui.auth.LoginScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 

@@ -43,6 +43,8 @@ exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "e
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
+exposed-migration-core = { module = "org.jetbrains.exposed:exposed-migration-core", version.ref = "exposed" }
+exposed-migration-jdbc = { module = "org.jetbrains.exposed:exposed-migration-jdbc", version.ref = "exposed" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -72,7 +74,8 @@ spring-jcl = { module = "org.springframework:spring-jcl", version.ref = "spring-
 spring-security-crypto = { module = "org.springframework.security:spring-security-crypto", version.ref = "spring-security" }
 
 [bundles]
-exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-kotlin-datetime"]
+exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-kotlin-datetime", "exposed-migration-core",
+    "exposed-migration-jdbc"]
 koin-compose = ["koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
 ktor-server = ["ktor-server-auth", "ktor-server-auth-jwt", "ktor-server-core", "ktor-server-cors", "ktor-server-netty",
     "ktor-server-content-negotiation", "ktor-server-config-yaml", "ktor-server-swagger"]

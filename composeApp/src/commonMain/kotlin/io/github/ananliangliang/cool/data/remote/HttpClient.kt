@@ -1,4 +1,4 @@
-package io.github.ananliangliang.cool.data.network
+package io.github.ananliangliang.cool.data.remote
 
 import io.ktor.client.*
 import io.ktor.client.plugins.*
