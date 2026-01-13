@@ -7,10 +7,7 @@ plugins {
 group = "io.github.ananliangliang.cool"
 version = "1.0.0"
 application {
-    mainClass.set("io.github.ananliangliang.cool.ApplicationKt")
-
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+    mainClass = "io.ktor.server.netty.EngineMain"
 }
 
 dependencies {

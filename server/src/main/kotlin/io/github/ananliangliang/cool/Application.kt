@@ -26,13 +26,14 @@ fun Application.module() {
 
     transaction {
 
-//        val a= MigrationUtils.statementsRequiredForDatabaseMigration(TaskTable, TaskListTable, UserTable)
-//        println(a)
-
-        MigrationUtils.generateMigrationScript(
-            TaskTable, TaskListTable, UserTable,
-            scriptDirectory = "server/src/main/resources/db/migration",
-            scriptName = Uuid.random().toString(),
-        )
+        val isDev = System.getProperty("io.ktor.development").toBoolean()
+        if (isDev)
+            environment.log.trace("Dev environment")
+            MigrationUtils.generateMigrationScript(
+                TaskTable, TaskListTable, UserTable,
+                scriptDirectory = "server/src/main/resources/db/migration",
+                scriptName = Uuid.random().toString(),
+            )
     }
+//    monitor.subscribe(ApplicationStopping)
 }
