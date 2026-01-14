@@ -9,22 +9,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun LoginScreen(doLogin: () -> Unit) {
+fun LoginScreen(viewModel: AuthViewModel = koinViewModel()) {
 
     var text by remember { mutableStateOf("") }
 
 
-    Row(Modifier.fillMaxSize(),verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
             label = { Text("name") },
             placeholder = { Text("enter your name") }
         )
-        Button(doLogin) {
+        Button({ viewModel.login(text) }) {
             Text("Login")
         }
     }
@@ -33,8 +34,5 @@ fun LoginScreen(doLogin: () -> Unit) {
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen {
-
-    }
-
+    LoginScreen()
 }

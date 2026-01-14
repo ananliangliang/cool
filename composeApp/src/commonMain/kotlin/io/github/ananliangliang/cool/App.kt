@@ -19,9 +19,11 @@ import androidx.navigation.compose.rememberNavController
 import io.github.ananliangliang.cool.di.koinModule
 import io.github.ananliangliang.cool.nav.CoolNavHost
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
+import io.github.ananliangliang.cool.ui.auth.AuthViewModel
 import io.github.ananliangliang.cool.ui.auth.LoginScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
@@ -29,23 +31,24 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
     MaterialTheme(if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
 
         val navController = rememberNavController()
-        var isLogin by remember { mutableStateOf(false) }
+        KoinApplication({ modules(koinModule) }) {
+            val authViewModel: AuthViewModel = koinViewModel()
 
 
-        if (isLogin)
-            Scaffold(
-                bottomBar = {
-                    CoolNavigationBar(navController)
-                },
-            ) { paddingValues ->
-                KoinApplication({ modules(koinModule) }) {
+            if (authViewModel.uiState.isLoggedIn)
+                Scaffold(
+                    bottomBar = {
+                        CoolNavigationBar(navController)
+                    },
+                ) { paddingValues ->
                     Box(Modifier.padding(paddingValues)) {
                         CoolNavHost(navController)
                     }
                 }
-            }
-        else
-            LoginScreen({ isLogin = true })
+            else
+                LoginScreen()
+        }
+
         LaunchedEffect(navController) {
             onNavHostReady(navController)
         }

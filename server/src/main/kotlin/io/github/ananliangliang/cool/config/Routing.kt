@@ -63,32 +63,37 @@ fun Application.configureRouting() {
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
-            route("/auth") {
-                val authService: AuthService by inject()
-                post("/login") {
-                    val req = call.receive<LoginReq>()
-                    val userEntity = authService.login(req)
-                    val jwtSecret = environment.config.property("jwt.secret").getString()
-                    val jwtIssuer = environment.config.property("jwt.issuer").getString()
-
-
-                    val token = JWT.create()
-                        .withIssuer(jwtIssuer)
-                        .withClaim("username", userEntity.username)
-                        .withClaim("name",userEntity.name )
-                        .withExpiresAt(Clock.System.now().plus(30.minutes).toJavaInstant())
-                        .sign(Algorithm.HMAC256(jwtSecret))
-                    call.respond(token)
-                }
-                authenticate("auth-jwt") {
-                    get("/me") {
-                        val principal = call.authentication.principal<JWTPrincipal>()
-                            ?: throw NotFoundException("User not authenticated")
-                        val username = principal.payload.getClaim("username").asString()
-                        call.respondText("Hello, $username!")
-                    }
-                }
+        }
+        route("/auth") {
+            val authService: AuthService by inject()
+            post("/login") {
+                val req = call.receive<LoginReq>()
+                authService.login(req)
+                call.respond(HttpStatusCode.OK)
             }
+//                post("/login") {
+//                    val req = call.receive<LoginReq>()
+//                    val userEntity = authService.login(req)
+//                    val jwtSecret = environment.config.property("jwt.secret").getString()
+//                    val jwtIssuer = environment.config.property("jwt.issuer").getString()
+//
+//
+//                    val token = JWT.create()
+//                        .withIssuer(jwtIssuer)
+//                        .withClaim("username", userEntity.username)
+//                        .withClaim("name",userEntity.name )
+//                        .withExpiresAt(Clock.System.now().plus(30.minutes).toJavaInstant())
+//                        .sign(Algorithm.HMAC256(jwtSecret))
+//                    call.respond(token)
+//                }
+//                authenticate("auth-jwt") {
+//                    get("/me") {
+//                        val principal = call.authentication.principal<JWTPrincipal>()
+//                            ?: throw NotFoundException("User not authenticated")
+//                        val username = principal.payload.getClaim("username").asString()
+//                        call.respondText("Hello, $username!")
+//                    }
+//                }
         }
 
 

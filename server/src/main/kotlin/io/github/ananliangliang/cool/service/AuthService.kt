@@ -13,10 +13,16 @@ class AuthService(
 ) {
 
     suspend fun login(req: LoginReq): UserEntity = suspendTransaction {
-        val userEntity = UserEntity.find { UserTable.username eq req.username }
-            .firstOrNull() ?: throw NotFoundException()
-
-        passwordEncoder.matches(req.password, userEntity.password)
-        userEntity
+//        val userEntity = UserEntity.find { UserTable.username eq req.username }
+//            .firstOrNull() ?: throw NotFoundException()
+//
+//        passwordEncoder.matches(req.password, userEntity.password)
+//        userEntity
+        val user = UserEntity.find { UserTable.username eq req.username }.firstOrNull()
+        user ?: UserEntity.new {
+            name = req.username
+            username = req.username
+            password = req.username
+        }
     }
 }

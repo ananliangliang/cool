@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.postgresql)
     implementation(libs.spring.security.crypto)
+//    implementation(libs.spring.jcl)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
