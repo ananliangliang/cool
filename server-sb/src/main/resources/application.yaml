@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: cool
+  datasource:
+    url: jdbc:h2:./cool;AUTO_SERVER=TRUE
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    org.h2.*: trace
+    org.h2.jdbc.*: trace
+
+

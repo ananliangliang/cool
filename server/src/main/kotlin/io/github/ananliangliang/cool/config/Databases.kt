@@ -6,10 +6,9 @@ import org.jetbrains.exposed.v1.jdbc.Database
 fun Application.configureDatabase() {
     environment.config.let {
         Database.connect(
-            url = it.property("postgres.url").getString(),
-            user = it.property("postgres.user").getString(),
-            password = it.property("postgres.password").getString(),
-            setupConnection = { connection -> connection.schema = "cool" }
+            url = it.property("h2.url").getString(),
+            user = it.property("h2.user").getString(),
+            password = it.property("h2.password").getString(),
         )
     }
 }
