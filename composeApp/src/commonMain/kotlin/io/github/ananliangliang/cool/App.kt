@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import io.github.ananliangliang.cool.di.koinModule
@@ -21,7 +22,6 @@ import io.github.ananliangliang.cool.nav.CoolNavHost
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
 import io.github.ananliangliang.cool.ui.auth.AuthViewModel
 import io.github.ananliangliang.cool.ui.auth.LoginScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -35,7 +35,7 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
             val authViewModel: AuthViewModel = koinViewModel()
 
 
-            if (authViewModel.uiState.isLoggedIn)
+//            if (authViewModel.uiState.isLoggedIn)
                 Scaffold(
                     bottomBar = {
                         CoolNavigationBar(navController)
@@ -45,8 +45,8 @@ fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
                         CoolNavHost(navController)
                     }
                 }
-            else
-                LoginScreen()
+//            else
+//                LoginScreen()
         }
 
         LaunchedEffect(navController) {

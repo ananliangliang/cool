@@ -13,7 +13,7 @@ import io.github.ananliangliang.cool.ui.task.detail.TaskDetailScreen
 
 @Composable
 fun CoolNavHost(navController: NavHostController) {
-    NavHost(navController, startDestination = Welcome) {
+    NavHost(navController, startDestination = Apps.Chess) {
         composable<Welcome> { MyScreen() }
         composable<Apps.Todo.Task> { TaskScreen(navController) }
         composable<Apps> { AppsScreen(navController) }

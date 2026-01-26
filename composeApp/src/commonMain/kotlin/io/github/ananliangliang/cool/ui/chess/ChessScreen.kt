@@ -6,6 +6,7 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -129,7 +130,6 @@ private fun ChessSquare(
     val baseBackgroundColor =
         if ((row + (col - 'A')) % 2 == 0) MaterialTheme.colorScheme.darkSquare
         else MaterialTheme.colorScheme.lightSquare
-    val backgroundColor = if (isSelected) Color.Yellow.copy(alpha = 0.5f) else baseBackgroundColor
 
     val canMoveTo = board.legalMoves().filter { it.from == selectedSquare }.any { it.to == currentSquare }
     val isSquareClickable =
@@ -140,7 +140,7 @@ private fun ChessSquare(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(backgroundColor)
+            .background(baseBackgroundColor)
             .clickable(isSquareClickable) {
                 if (viewModel.uiState.selectedSquare == Square.NONE) {
                     if (piece != Piece.NONE) {
@@ -156,42 +156,48 @@ private fun ChessSquare(
             }.legalMoveTo(canMoveTo),
         contentAlignment = Alignment.Center
     ) {
-        if (piece != Piece.NONE) ChessPieceView(piece, swingPiece)
+        if (piece != Piece.NONE) ChessPieceView(piece, isSelected,  swingPiece)
     }
 }
 
 @Composable
-private fun ChessPieceView(piece: Piece, swing: Boolean = false) {
+private fun ChessPieceView(piece: Piece, isSelected: Boolean, swing: Boolean = false) {
     val isWhite = piece.pieceSide == Side.WHITE
     val pieceColor = if (isWhite) MaterialTheme.colorScheme.whitePiece else MaterialTheme.colorScheme.blackPiece
 
-    if (piece.pieceType == PieceType.BISHOP || piece.pieceSide == Side.WHITE)
+    val painter = when (piece) {
+        Piece.BLACK_KING -> painterResource(Res.drawable.chess_king_black)
+        Piece.BLACK_KNIGHT -> painterResource(Res.drawable.chess_knight_black)
+        Piece.BLACK_PAWN -> painterResource(Res.drawable.chess_pawn_black)
+        Piece.BLACK_QUEEN -> painterResource(Res.drawable.chess_queen_black)
+        Piece.BLACK_ROOK -> painterResource(Res.drawable.chess_rook_black)
+        Piece.WHITE_KING -> painterResource(Res.drawable.chess_king_white)
+        Piece.WHITE_KNIGHT -> painterResource(Res.drawable.chess_knight_white)
+        Piece.WHITE_PAWN -> painterResource(Res.drawable.chess_pawn_white)
+        Piece.WHITE_QUEEN -> painterResource(Res.drawable.chess_queen_white)
+        Piece.WHITE_ROOK -> painterResource(Res.drawable.chess_rook_white)
+        else -> null
+    }
+
+    if (painter == null)
         Box(
             modifier = Modifier.swing(swing)
                 .fillMaxSize()
                 .scale(0.8F)
                 .clip(CircleShape)
                 .background(pieceColor.copy(alpha = 0.9f))
+                .apply { if (isSelected) scale(1.1F) }
             ,
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = piece.fanSymbol,
+                text = piece.fenSymbol,
                 fontSize = 40.sp,
                 color = if (isWhite) MaterialTheme.colorScheme.blackPiece else MaterialTheme.colorScheme.whitePiece,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
         }
-    else if (piece.pieceType == PieceType.PAWN)
-        Image(painterResource(Res.drawable.chess_pawn_black), contentDescription = null)
-    else if (piece.pieceType == PieceType.ROOK)
-        Image(painterResource(Res.drawable.chess_rook_black), contentDescription = null)
-    else if (piece.pieceType == PieceType.KNIGHT)
-        Image(painterResource(Res.drawable.chess_knight_black), contentDescription = null)
-    else if (piece.pieceType == PieceType.QUEEN)
-        Image(painterResource(Res.drawable.chess_queen_black), contentDescription = null)
-    else if (piece.pieceType == PieceType.KING)
-        Image(painterResource(Res.drawable.chess_king_black), contentDescription = null)
+    else Image(painter, contentDescription = piece.fenSymbol, Modifier.swing(true)                .apply { if (isSelected) scale(1.1F) })
 
 }
