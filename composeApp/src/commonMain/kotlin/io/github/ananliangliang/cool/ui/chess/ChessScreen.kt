@@ -186,7 +186,6 @@ private fun ChessPieceView(piece: Piece, isSelected: Boolean, swing: Boolean = f
                 .scale(0.8F)
                 .clip(CircleShape)
                 .background(pieceColor.copy(alpha = 0.9f))
-                .apply { if (isSelected) scale(1.1F) }
             ,
             contentAlignment = Alignment.Center
         ) {
@@ -198,6 +197,6 @@ private fun ChessPieceView(piece: Piece, isSelected: Boolean, swing: Boolean = f
                 textAlign = TextAlign.Center
             )
         }
-    else Image(painter, contentDescription = piece.fenSymbol, Modifier.swing(true)                .apply { if (isSelected) scale(1.1F) })
+    else Image(painter, contentDescription = piece.fenSymbol, Modifier.swing(swing))
 
 }
