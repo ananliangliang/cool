@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import cool.composeapp.generated.resources.Res
 import cool.composeapp.generated.resources.created_at
 import cool.composeapp.generated.resources.task
@@ -34,7 +33,7 @@ import io.github.ananliangliang.cool.ui.component.TaskImportantCheckBox
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskDetailScreen(
-    navController: NavController, taskId: Long,
+    taskId: Long, onBack: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: TaskDetailViewModel = koinViewModel { parametersOf(taskId) }
 ) {
@@ -43,7 +42,7 @@ fun TaskDetailScreen(
             TopAppBar(
                 { Text(stringResource(Res.string.task)) },
                 navigationIcon = {
-                    IconButton({ navController.navigateUp() }) {
+                    IconButton(onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 })

@@ -2,12 +2,10 @@ package io.github.ananliangliang.cool
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
-import androidx.navigation.ExperimentalBrowserHistoryApi
-import androidx.navigation.bindToBrowserNavigation
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     ComposeViewport {
-        App(onNavHostReady = { it.bindToBrowserNavigation() })
+        App()
     }
 }

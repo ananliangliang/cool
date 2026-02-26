@@ -16,10 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import cool.composeapp.generated.resources.Res
 import cool.composeapp.generated.resources.task
-import io.github.ananliangliang.cool.nav.Apps
 import io.github.ananliangliang.cool.ui.component.TaskCompleteCheckBox
 import io.github.ananliangliang.cool.ui.component.TaskListItem
 import org.jetbrains.compose.resources.stringResource
@@ -27,7 +25,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskScreen(navController: NavController, viewModel: TaskViewModel = koinViewModel()) {
+fun TaskScreen(onBack: () -> Unit = {}, toDetail: (Long) -> Unit = {}, viewModel: TaskViewModel = koinViewModel()) {
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(viewModel.uiState.showModal) {
@@ -41,7 +39,7 @@ fun TaskScreen(navController: NavController, viewModel: TaskViewModel = koinView
             TopAppBar(
                 { Text(stringResource(Res.string.task)) },
                 navigationIcon = {
-                    IconButton({ navController.navigateUp() }) {
+                    IconButton(onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 })
@@ -57,9 +55,7 @@ fun TaskScreen(navController: NavController, viewModel: TaskViewModel = koinView
                         onCompleted = { viewModel.handleTaskToggle(task) },
                         onImportant = { viewModel.handleTaskImportant(task) },
                         onDelete = { viewModel.deleteTask(task.id!!) },
-                        onClick = {
-                            navController.navigate(Apps.Todo.TaskDetail(task.id!!))
-                        },
+                        onClick = { toDetail(task.id!!) },
                         modifier = Modifier.animateItem(),
                     )
                 }

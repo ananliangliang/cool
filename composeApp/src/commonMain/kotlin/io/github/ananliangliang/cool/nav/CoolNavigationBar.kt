@@ -12,20 +12,19 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 
 @Composable
 fun CoolNavigationBar(
-    navController: NavController
+    backStack: NavBackStack<NavKey>
 ) {
     data class NavItem(
         val label: String,
         val selectedIcon: ImageVector,
         val unselectedIcon: ImageVector,
-        val route: Any,
+        val route: NavKey,
     )
     val navItems = listOf(
         NavItem("CurrentApp", Icons.Filled.Home, Icons.Outlined.Home, Apps.Todo.Task),
@@ -47,7 +46,7 @@ fun CoolNavigationBar(
                 selected = selectedItem == index,
                 onClick = {
                     selectedItem = index
-                    navController.navigate(navItem.route)
+                    backStack.add(navItem.route)
                 }
 
             )

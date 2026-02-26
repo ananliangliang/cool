@@ -6,7 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -15,13 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import io.github.ananliangliang.cool.nav.Apps
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TaskListScreen(
-    navController: NavController,
+    toTask: () -> Unit,
     viewModel: TaskListViewModel = koinViewModel(),
 ) {
     Box(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
@@ -39,7 +37,7 @@ fun TaskListScreen(
                 ListItem(
                     { Text(it.name) },
                     Modifier.clickable(true) {
-                        navController.navigate(Apps.Todo.Task)
+                        toTask()
                     },
                     leadingContent = { Icon(it.icon, null) },
 

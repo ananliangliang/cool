@@ -4,20 +4,24 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import io.github.ananliangliang.cool.nav.Apps
-import io.github.ananliangliang.cool.nav.CurrentApp
+import androidx.compose.ui.tooling.preview.Preview
 
+@Preview
 @Composable
 fun AppsScreen(
-    navController: NavController,
+    navToTodos: () -> Unit = {},
+    navToChess: () -> Unit = {},
+    navToServer: () -> Unit = {},
 ) {
     Row {
-        Button(onClick = { navController.navigate(CurrentApp) }) {
+        Button(onClick = navToTodos) {
             Text("Todo")
         }
-        Button(onClick = { navController.navigate(Apps.Chess) }) {
+        Button(onClick = navToChess) {
             Text("Chess")
+        }
+        Button(onClick = navToServer) {
+            Text("Server")
         }
     }
 }

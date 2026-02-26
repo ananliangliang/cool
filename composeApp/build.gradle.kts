@@ -60,11 +60,12 @@ kotlin {
             implementation(projects.shared)
 
             implementation(compose.materialIconsExtended)
-            implementation(libs.bundles.koin.compose)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
             implementation(libs.bundles.ktor.client)
+            implementation(libs.jetbrains.navigation3.ui)
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.navigation.compose)
             implementation("io.github.cvb941:kchesslib:1.0.4")
             implementation("org.jetbrains.compose.material3.adaptive:adaptive:1.2.0")
         }

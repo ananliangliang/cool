@@ -8,49 +8,42 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.rememberNavBackStack
 import io.github.ananliangliang.cool.di.koinModule
-import io.github.ananliangliang.cool.nav.CoolNavHost
+import io.github.ananliangliang.cool.nav.Apps
+import io.github.ananliangliang.cool.nav.CoolNavDisplay
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
+import io.github.ananliangliang.cool.nav.navConfig
 import io.github.ananliangliang.cool.ui.auth.AuthViewModel
-import io.github.ananliangliang.cool.ui.auth.LoginScreen
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.dsl.koinConfiguration
 
 @Composable
 @Preview
-fun App(onNavHostReady: suspend (NavController) -> Unit = {}) {
+fun App() {
     MaterialTheme(if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
 
-        val navController = rememberNavController()
-        KoinApplication({ modules(koinModule) }) {
+        KoinApplication( { modules(koinModule) }) {
             val authViewModel: AuthViewModel = koinViewModel()
 
 
 //            if (authViewModel.uiState.isLoggedIn)
+            val backStack = rememberNavBackStack(navConfig, Apps.Chess)
                 Scaffold(
                     bottomBar = {
-                        CoolNavigationBar(navController)
+                        CoolNavigationBar(backStack)
                     },
                 ) { paddingValues ->
                     Box(Modifier.padding(paddingValues)) {
-                        CoolNavHost(navController)
+                        CoolNavDisplay(backStack)
                     }
                 }
 //            else
 //                LoginScreen()
         }
 
-        LaunchedEffect(navController) {
-            onNavHostReady(navController)
-        }
     }
 }
