@@ -6,7 +6,6 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -17,25 +16,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.bhlangonijr.chesslib.Piece
-import com.github.bhlangonijr.chesslib.PieceType
 import com.github.bhlangonijr.chesslib.Side
 import com.github.bhlangonijr.chesslib.Square
 import cool.composeapp.generated.resources.*
+import io.github.ananliangliang.cool.di.KoinScreenPreview
 import io.github.ananliangliang.cool.ui.legalMoveTo
 import io.github.ananliangliang.cool.ui.swing
 import io.github.ananliangliang.cool.ui.theme.*
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
-
 @Preview
+@Preview(uiMode = AndroidUiModes.UI_MODE_NIGHT_YES)
+@Composable
+fun ChessScreenPreview() {
+    KoinScreenPreview {
+        ChessScreen()
+    }
+}
+
 @Composable
 fun ChessScreen(viewModel: ChessViewModel = koinViewModel()) {
     ChessTheme {
@@ -85,7 +91,6 @@ fun Seat() {
 @Composable
 private fun ChessBoard(pieces: Array<Piece>, fen: String) {
     SharedTransitionLayout {
-        AnimatedContent(fen) {
 
 
     Column(
@@ -104,16 +109,12 @@ private fun ChessBoard(pieces: Array<Piece>, fen: String) {
                         row = row,
                         col = col,
                         piece = piece,
-                        Modifier.weight(1f)
-                            .sharedElement(rememberSharedContentState((row - 1) * 8 + (col - 'A')),
-                                this@AnimatedContent)
-                        ,
+                        Modifier.weight(1f),
                     )
                 }
             }
         }
     }
-        }
     }
 }
 

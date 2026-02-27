@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation3.runtime.rememberNavBackStack
-import io.github.ananliangliang.cool.di.koinModule
+import io.github.ananliangliang.cool.di.application
 import io.github.ananliangliang.cool.nav.Apps
 import io.github.ananliangliang.cool.nav.CoolNavDisplay
 import io.github.ananliangliang.cool.nav.CoolNavigationBar
@@ -19,14 +19,13 @@ import io.github.ananliangliang.cool.nav.navConfig
 import io.github.ananliangliang.cool.ui.auth.AuthViewModel
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.dsl.koinConfiguration
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme(if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()) {
 
-        KoinApplication( { modules(koinModule) }) {
+        KoinApplication(application) {
             val authViewModel: AuthViewModel = koinViewModel()
 
 
