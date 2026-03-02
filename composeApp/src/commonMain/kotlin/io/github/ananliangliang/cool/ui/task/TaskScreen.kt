@@ -3,10 +3,6 @@ package io.github.ananliangliang.cool.ui.task
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,9 +13,13 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import cool.composeapp.generated.resources.Res
+import cool.composeapp.generated.resources.ic_add
+import cool.composeapp.generated.resources.ic_arrow_back
+import cool.composeapp.generated.resources.ic_arrow_upward
 import cool.composeapp.generated.resources.task
 import io.github.ananliangliang.cool.ui.component.TaskCompleteCheckBox
 import io.github.ananliangliang.cool.ui.component.TaskListItem
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -40,7 +40,7 @@ fun TaskScreen(onBack: () -> Unit = {}, toDetail: (Long) -> Unit = {}, viewModel
                 { Text(stringResource(Res.string.task)) },
                 navigationIcon = {
                     IconButton(onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(painterResource(Res.drawable.ic_arrow_back), contentDescription = "Back")
                     }
                 })
         }) { paddingValues ->
@@ -68,7 +68,7 @@ fun TaskScreen(onBack: () -> Unit = {}, toDetail: (Long) -> Unit = {}, viewModel
                     .align(Alignment.BottomEnd)
                     .padding(16.dp)
             ) {
-                Icon(Icons.Default.Add, contentDescription = "添加")
+                Icon(painterResource(Res.drawable.ic_add), contentDescription = "添加")
             }
 
             // 底部输入框
@@ -101,7 +101,7 @@ fun TaskScreen(onBack: () -> Unit = {}, toDetail: (Long) -> Unit = {}, viewModel
                                     viewModel::handleTaskAddition,
                                     enabled = viewModel.uiState.titleOfNewTask.isNotBlank(),
                                 ) {
-                                    Icon(Icons.Default.ArrowUpward, "添加")
+                                    Icon(painterResource(Res.drawable.ic_arrow_upward), "添加")
                                 }
                             }
                         )

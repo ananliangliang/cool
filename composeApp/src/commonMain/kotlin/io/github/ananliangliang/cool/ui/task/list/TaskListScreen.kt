@@ -4,17 +4,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import cool.composeapp.generated.resources.Res
+import cool.composeapp.generated.resources.ic_home_outlined
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -23,23 +23,23 @@ fun TaskListScreen(
     viewModel: TaskListViewModel = koinViewModel(),
 ) {
     Box(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-        data class Fixed(val name: String, val icon: ImageVector)
+        data class Fixed(val name: String, val icon: DrawableResource)
         Column {
-            listOf(
+            listOf<Fixed>(
 //                Fixed("My Day", Icons.Rounded.WbSunny),
 //                Fixed("Important", Icons.Rounded.StarBorder),
 //                Fixed("Plan", Icons.Rounded.CalendarMonth),
 //                Fixed("All", Icons.Rounded.AllInclusive),
 //                Fixed("Completed", Icons.Outlined.CheckCircle),
 //                Fixed("Assign", Icons.Rounded.Person),
-                Fixed("Task", Icons.Rounded.Home)
+                Fixed("Task", Res.drawable.ic_home_outlined)
             ).forEach {
                 ListItem(
                     { Text(it.name) },
                     Modifier.clickable(true) {
                         toTask()
                     },
-                    leadingContent = { Icon(it.icon, null) },
+                    leadingContent = { Icon(painterResource(it.icon), null) },
 
                     )
             }
@@ -49,7 +49,7 @@ fun TaskListScreen(
             viewModel.taskListList.forEach {
                 ListItem(
                     { Text(it.name) },
-                    leadingContent = { Icon(Icons.Outlined.Home, null) },
+//                    leadingContent = { Icon(Icons.Outlined.Home, null) },
                 )
             }
         }

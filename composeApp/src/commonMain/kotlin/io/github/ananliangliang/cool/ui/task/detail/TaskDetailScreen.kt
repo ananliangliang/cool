@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -22,12 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cool.composeapp.generated.resources.Res
 import cool.composeapp.generated.resources.created_at
+import cool.composeapp.generated.resources.ic_arrow_back
+import cool.composeapp.generated.resources.ic_delete
 import cool.composeapp.generated.resources.task
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import io.github.ananliangliang.cool.ui.component.TaskCompleteCheckBox
 import io.github.ananliangliang.cool.ui.component.TaskImportantCheckBox
+import org.jetbrains.compose.resources.painterResource
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +43,7 @@ fun TaskDetailScreen(
                 { Text(stringResource(Res.string.task)) },
                 navigationIcon = {
                     IconButton(onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(painterResource(Res.drawable.ic_arrow_back), contentDescription = "Back")
                     }
                 })
         }
@@ -81,7 +81,7 @@ fun TaskDetailScreen(
                         stringResource(Res.string.created_at) + " " + viewModel.formattedCreatedAt,
                         modifier.weight(1F),
                     )
-                    Icon(Icons.Rounded.Delete, "Delete")
+                    Icon(painterResource(Res.drawable.ic_delete), "Delete")
                 }
             }
         }
