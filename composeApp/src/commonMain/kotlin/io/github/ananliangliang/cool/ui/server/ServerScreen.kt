@@ -25,14 +25,14 @@ fun ServerScreen() {
 
 
     LaunchedEffect(start) {
-        fun portProxy(port: Int) = "netsh interface portproxy add v4tov4 " +
-                "listenport=$port listenaddress=0.0.0.0 connectport=$port connectaddress=ubuntu.mshome.net"
         if (start) {
             while (isActive) {
                 delay(3000)
-                execOnWindows(portProxy(22))
-                execOnWindows(portProxy(500))
-                execOnWindows(portProxy(4500))
+                execOnWindows(
+                    "powershell", "-Command", "\"Start-Process -FilePath 'netsh' -Verb RunAs " +
+                            "-ArgumentList 'interface', 'portproxy', 'add', 'v4tov4', 'listenport=22', '" +
+                            "listenaddress=0.0.0.0', 'connectport=22', 'connectaddress=ubuntu.mshome.net'\""
+                )
                 println("Port proxy set")
             }
         }
